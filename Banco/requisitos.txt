@@ -1,0 +1,27 @@
+BANCO DE DADOS (sistema / aplicativo):
+
+ . USUARIOS (vão utilizar o sistema, desde alunos a professores e funcionarios da instituição)
+	- nome
+	- RA, RM, CPF ou RG (decidimos em reunião com o grupo todo, mas 1 desses seria o suficiente para identificar o usuario logado) (unico)
+	- email (para recuperação)
+	- senha (para login)
+ . FUNCIONARIOS (para cadastrar os funcionários do suporte, que irão receber os chamados para executá-los)
+	- nome
+	- cargo
+	- rg
+	- email
+	- senha
+ . EQUIPAMENTOS 
+	- descricao
+	- tipo (pc, ar-condicionado, projetor, ...)
+	- local (fk)
+ . LOCAIS (inclui salas, blocos, laboratórios)
+	- nome
+ . CHAMADOS
+	- descricao problema
+	- data_inicio (ao abrir o chamado)
+	- data_fim (ao fechar o chamado)
+	- status (PENDENTE(0), REALIZADO (1), CANCELADO (2))
+	- usuario (fk)
+	- funcionario (ao fechar o chamado)
+	- equipamento (fk)
