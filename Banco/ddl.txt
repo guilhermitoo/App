@@ -1,0 +1,43 @@
+create table usuarios
+(
+	id int not null primary key auto_increment,
+	nome varchar(100) not null,
+	email varchar(50) not null,
+	senha varchar(50) not null
+);
+
+create table funcionarios
+(
+	id int not null primary key auto_increment,
+	nome varchar(100) not null,
+	rg varchar(12) not null,
+	cpf varchar(14) not null unique,
+	email varchar(50) not null,
+	senha varchar(50) not null	
+);
+
+create table local
+(
+	id int not null primary key auto_increment,
+	nome varchar(50) not null
+);
+
+create table equipamentos
+(
+	id int not null primary key auto_increment,
+	descricao varchar(50) not null,
+	tipo varchar(50) not null,
+	local_id int not null foreign key fk_local...
+);
+
+create table chamado
+(
+	id int not null primary key auto_increment,
+	descricao varchar(200) not null,
+	data_inicio date not null,
+	data_fim date,
+	status int not null,
+	usuario_id int not null foreign key fk_usuario...
+	funcionario_id int not null foreign key fk_funcionario...
+	equipamento_id int not null foreign key fk_equipamento...	
+);

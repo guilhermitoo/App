@@ -1,14 +1,14 @@
 BANCO DE DADOS (sistema / aplicativo):
 
  . USUARIOS (vão utilizar o sistema, desde alunos a professores e funcionarios da instituição)
-	- nome
-	- RA, RM, CPF ou RG (decidimos em reunião com o grupo todo, mas 1 desses seria o suficiente para identificar o usuario logado) (unico)
-	- email (para recuperação)
+	- nome	
+	- email (para recuperação) (unico)
 	- senha (para login)
  . FUNCIONARIOS (para cadastrar os funcionários do suporte, que irão receber os chamados para executá-los)
 	- nome
 	- cargo
 	- rg
+	- cpf (unico)
 	- email
 	- senha
  . EQUIPAMENTOS 
