@@ -20,7 +20,7 @@
 </head>
 
 <body class="fixed-left">
-    <div id="wrapper">
+    <div id="wrapper">        
         <div class="topbar">
             <div class="topbar-left">
                 <div class="text-center"><a href="index.html" class="logo"><img src="logo-helpp1.png" class="img-responsive" /></a></div>

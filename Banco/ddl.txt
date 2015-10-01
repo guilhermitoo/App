@@ -45,3 +45,10 @@ create table chamados
 	CONSTRAINT fkFuncionario FOREIGN KEY (funcionario_id) REFERENCES funcionarios(id),
 	CONSTRAINT fkEquipamento FOREIGN KEY (equipamento_id) REFERENCES equipamentos(id)
 );
+
+
+-- código de criação do usuário
+
+CREATE USER 'user'@'localhost' IDENTIFIED BY PASSWORD '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257'; 
+GRANT USAGE ON *.* TO 'user'@'localhost' IDENTIFIED BY PASSWORD '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257'; 
+GRANT ALL PRIVILEGES ON `appriori`.* TO 'user'@'localhost';
