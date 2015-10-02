@@ -6,17 +6,11 @@
 		<div class='col-md-12'>			        
             <div class="col-md-12">
                 <input type=hidden id="codigo" />
-                <br /><label>Nome</label>
-                <input type="text" class="form-control" id="nome" placeholder="Digite seu nome..."/>
-                <br /><label>Registro Geral (RG)</label>
-                <input type="text" class="form-control" id="rg" placeholder="EX: 12 345 678 9"/>
-                <br /><label>Cadastro de Pessoa Fisica (CPF)</label>
-                <input type="text" class="form-control" id="cpf" placeholder="EX: 123 456 789 00"/>
-                <br /><label>Email</label>
-                <input type="text" class="form-control" id="email" placeholder="Digite seu email..."/>			
-                <br /><label>Senha</label>
-                <input type="password" class="form-control" id="senha" placeholder="Fique atento aos pilares, escolha sua senha..."/>								
-                <br />
+                <br /><label>Local</label>
+                <input type="text" class="form-control" id="local" placeholder="Digite o local do erro encontrado"/>
+                <br /><label>Descrição</label>
+                <textarea class="form-control" rows="5" id="descricao" placeholder="Se tiver alguma observação, digite aqui..."></textarea>
+               
                 <button id="btnSalvar" class="btn btn-success btn-rounded waves-effect waves-light m-b-5">Salvar</button>
                 <a id="btnListar" class="btn btn-info btn-rounded waves-effect waves-light m-b-5" href="listaFuncionarios.php">Listar</a>
             </div>										            
@@ -26,6 +20,8 @@
 	<script src="assets/js/mascara.js"></script>
 	<script src="assets/js/moltran.min.js"></script>
     <script type="text/javascript">
+        /*
+        
         $(document).ready(function(){
             $("#btnSalvar").click(function(r){
                 // pega os dados dos campos
@@ -59,5 +55,7 @@
                 $("#senha").val('');
             }
         });
+        
+        */ 
     </script>    
 </html>
