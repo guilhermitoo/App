@@ -8,9 +8,7 @@
                 <input type=hidden id="codigo" />
                 <br /><label>Local</label>
                 <input type="text" class="form-control" id="local" placeholder="Digite o local do erro encontrado"/>
-                <br /><label>Descrição</label>
-                <textarea class="form-control" rows="5" id="descricao" placeholder="Se tiver alguma observação, digite aqui..."></textarea>
-               <br />
+                <br />
                 <button id="btnSalvar" class="btn btn-success btn-rounded waves-effect waves-light m-b-5">Salvar</button>
                 <a id="btnListar" class="btn btn-info btn-rounded waves-effect waves-light m-b-5" href="listaFuncionarios.php">Listar</a>
             </div>										            
@@ -58,4 +56,4 @@
         
         */ 
     </script>    
-</html>
+</html> 
