@@ -1,28 +1,64 @@
-<html>
-    <script src="js/jquery-1.10.2.js"></script>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">	
-	<body>
-		<div class='col-md-12'>
-			<form class="form" method="post" action="funcionarios.php">
-				<div class="col-md-12">
-					<br /><label>Nome</label>
-					<input type="text" class="form-control" />
-					<br /><label>Registro Geral (RG)</label>
-					<input type="text" class="form-control" />
-					<br /><label>Cadastro de Pessoa Fisica (CPF)</label>
-					<input type="text" class="form-control" />
-					<br /><label>Email</label>
-					<input type="text" class="form-control" />			
-					<br /><label>Senha</label>
-					<input type="text" class="form-control" />								
-					<br />
-					<button name="btnSalvar" type="submit" class="btn btn-success">Salvar</button>
-					<button name="btnListar" type="submit" class="btn btn-info">Listar</button>
-				</div>
-							
-			</form>
+<html>    
+    <link rel="stylesheet" href="css/moltran.min.css">
+	<body>        
+		<div class='col-md-12'>			        
+            <div class="col-md-12">
+                <input type=hidden id="codigo" />
+                <br /><label>Nome</label>
+                <input type="text" class="form-control" id="nome" />
+                <br /><label>Registro Geral (RG)</label>
+                <input type="text" class="form-control" id="rg" />
+                <br /><label>Cadastro de Pessoa Fisica (CPF)</label>
+                <input type="text" class="form-control" id="cpf" />
+                <br /><label>Email</label>
+                <input type="text" class="form-control" id="email" />			
+                <br /><label>Senha</label>
+                <input type="text" class="form-control" id="senha" />								
+                <br />
+                <button id="btnSalvar" class="btn btn-success">Salvar</button>
+                <button id="btnListar" class="btn btn-info">Listar</button>
+            </div>										            
 		</div>	
 	</body>
-	<script src="js/bootstrap.min.js"></script>
+<!--	<script src="js/mascara.js"></script>-->
+<!--	<script src="js/moltran.min.js"></script>-->
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#btnSalvar").click(function(r){
+                // pega os dados dos campos
+                $id = $("#codigo").val();
+                $nome = $("#nome").val();
+                $rg = $("#rg").val();
+                $cpf = $("#cpf").val();
+                $email = $("#email").val();
+                $senha = $("#senha").val();                                
+                // atribui para o array, para enviar no post
+                $dados = { id : $id , nome : $nome , rg : $rg , cpf : $cpf , email : $email , senha : $senha };
+                // faz o envio dos dados para o php
+                $.ajax({
+                    url: "funcionarios.php", 
+                    type: "POST", 
+                    data: $dados,
+                    success : function(data) { 
+                        alert(data);
+                        Limpar();
+                    }
+                });
+            });
+                          
+            $("#btnListar").click(function(r){
+                $("#conteudo").load("listaFuncionarios.html");
+            });
+            
+            function Limpar(){
+                //limpa os campos
+                $("#codigo").val('');
+                $("#nome").val('');
+                $("#rg").val('');
+                $("#cpf").val('');
+                $("#email").val('');
+                $("#senha").val('');
+            }
+        });
+    </script>    
 </html>
