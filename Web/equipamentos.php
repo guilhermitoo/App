@@ -5,9 +5,9 @@
         <?php include_once 'header.html'; ?>
 		<div class='col-md-12'>			        
             <div class="col-md-12">
-                <input type=hidden id="codigo" />
+                <input type=hidden id="id" />
                 <br /><label>Local</label>
-                <input type="text" class="form-control" id="local" placeholder="Digite o local do erro encontrado"/>
+                <input type="text" class="form-control" id="descricao" placeholder="Digite a descrição do equipamento"/>
                 <br /><label>Descrição</label>
                 <textarea class="form-control" rows="5" id="descricao" placeholder="Se tiver alguma observação, digite aqui..."></textarea>
                <br />
@@ -20,22 +20,19 @@
 	<script src="assets/js/mascara.js"></script>
 	<script src="assets/js/moltran.min.js"></script>
     <script type="text/javascript">
-        /*
-        
+
         $(document).ready(function(){
             $("#btnSalvar").click(function(r){
                 // pega os dados dos campos
-                $id = $("#codigo").val();
-                $nome = $("#nome").val();
-                $rg = $("#rg").val();
-                $cpf = $("#cpf").val();
-                $email = $("#email").val();
-                $senha = $("#senha").val();                                
+                $id = $("#id").val();
+                $descricao = $("#descricao").val();
+                $local_id = $("#local_id").val();
+;                                
                 // atribui para o array, para enviar no post
-                $dados = { id : $id , nome : $nome , rg : $rg , cpf : $cpf , email : $email , senha : $senha };
+                $dados = { id : $id , descricao : $descricao , local_id : $local_id };
                 // faz o envio dos dados para o php
                 $.ajax({
-                    url: "CadFuncionarios.php", 
+                    url: "CadEquipamentos.php", 
                     type: "POST", 
                     data: $dados,
                     success : function(data) { 
@@ -47,15 +44,10 @@
             
             function Limpar(){
                 //limpa os campos
-                $("#codigo").val('');
+                $("#id").val('');
                 $("#nome").val('');
-                $("#rg").val('');
-                $("#cpf").val('');
-                $("#email").val('');
-                $("#senha").val('');
             }
         });
-        
-        */ 
+ 
     </script>    
 </html>

@@ -5,8 +5,8 @@ try{
     if (isset($_POST)){        
         require "db.php";
         // recebe os dados
-        if (isset($_POST['codigo'])){
-            $id = $_POST['codigo'];
+        if (isset($_POST['id'])){
+            $id = $_POST['id'];
         }
         else{
             $id = '';
@@ -27,7 +27,11 @@ try{
                     'nome'=>$nome,                    
                     'email'=>$email,
                     'senha'=>$senha]);
-            echo 'Usuário nº' . $id . ' cadastrado com sucesso.';
+            if ($id > 0){
+                echo 'Usuário nº' . $id . ' cadastrado com sucesso.';
+            }else{
+                echo 'erro ao cadastrar';
+            }
         }else{
             $database->update('usuarios',[
                     'nome'=>$nome,                    

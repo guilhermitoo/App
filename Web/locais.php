@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <input type=hidden id="codigo" />
                 <br /><label>Local</label>
-                <input type="text" class="form-control" id="descricao" placeholder="Digite o nome do local"/>
+                <input type="text" class="form-control" id="nome" placeholder="Digite o nome do local"/>
                 <br />
                 <button id="btnSalvar" class="btn btn-success btn-rounded waves-effect waves-light m-b-5">Salvar</button>
                 <a id="btnListar" class="btn btn-info btn-rounded waves-effect waves-light m-b-5" href="listaLocais.php">Listar</a>
@@ -21,10 +21,10 @@
         $(document).ready(function(){
             $("#btnSalvar").click(function(r){
                 // pega os dados dos campos
-                $id = $("#codigo").val();
-                $descricao = $("#descricao").val();                             
+                $id = $("#id").val();
+                $nome = $("#nome").val();                             
                 // atribui para o array, para enviar no post
-                $dados = { id : $id , descricao : $descricao };
+                $dados = { id : $id , nome : $nome };
                 // faz o envio dos dados para o php
                 $.ajax({
                     url: "CadLocais.php", 
@@ -39,7 +39,7 @@
             
             function Limpar(){
                 //limpa os campos
-                $("#codigo").val('');
+                $("#id").val('');
                 $("#descricao").val('');
             }
         });                

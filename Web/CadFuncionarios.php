@@ -5,8 +5,8 @@ try{
     if (isset($_POST)){        
         require "db.php";
         // recebe os dados
-        if (isset($_POST['codigo'])){
-            $id = $_POST['codigo'];
+        if (isset($_POST['id'])){
+            $id = $_POST['id'];
         }
         else{
             $id = '';
@@ -26,7 +26,7 @@ try{
         if (isset($_POST['senha'])){
             $senha = $_POST['senha'];
         }                    
-        
+        // se o id não foi atribuido faz o insert
         if ($id == '')
         {
             $id = $database->insert('funcionarios',[
@@ -35,8 +35,13 @@ try{
                     'cpf'=>$cpf,
                     'email'=>$email,
                     'senha'=>$senha]);
-            echo 'Funcionário nº' . $id . ' cadastrado com sucesso.';
+            if ($id > 0){
+                echo 'Funcionário nº' . $id . ' cadastrado com sucesso.';
+            }else{
+                echo 'erro ao cadastrar';
+            }            
         }else{
+            // se o id foi atribuido, então é update
             $database->update('funcionarios',[
                     'nome'=>$nome,
                     'rg'=>$rg,
