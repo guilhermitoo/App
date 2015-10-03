@@ -1,6 +1,6 @@
 <?php
 
-// arquivo realizará o cadastro ou alteração de usuários a partir do método $_POST
+// arquivo realizará o cadastro ou alteração de funcionários a partir do método $_POST
 try{
     if (isset($_POST)){        
         require "db.php";

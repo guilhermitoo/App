@@ -7,33 +7,27 @@
             <div class="col-md-12">
                 <input type=hidden id="codigo" />
                 <br /><label>Local</label>
-                <input type="text" class="form-control" id="local" placeholder="Digite o local do erro encontrado"/>
+                <input type="text" class="form-control" id="descricao" placeholder="Digite o nome do local"/>
                 <br />
                 <button id="btnSalvar" class="btn btn-success btn-rounded waves-effect waves-light m-b-5">Salvar</button>
-                <a id="btnListar" class="btn btn-info btn-rounded waves-effect waves-light m-b-5" href="listaFuncionarios.php">Listar</a>
+                <a id="btnListar" class="btn btn-info btn-rounded waves-effect waves-light m-b-5" href="listaLocais.php">Listar</a>
             </div>										            
 		</div>
         <?php include_once 'footer.html'; ?>
 	</body>
 	<script src="assets/js/mascara.js"></script>
 	<script src="assets/js/moltran.min.js"></script>
-    <script type="text/javascript">
-        /*
-        
+    <script type="text/javascript">        
         $(document).ready(function(){
             $("#btnSalvar").click(function(r){
                 // pega os dados dos campos
                 $id = $("#codigo").val();
-                $nome = $("#nome").val();
-                $rg = $("#rg").val();
-                $cpf = $("#cpf").val();
-                $email = $("#email").val();
-                $senha = $("#senha").val();                                
+                $descricao = $("#descricao").val();                             
                 // atribui para o array, para enviar no post
-                $dados = { id : $id , nome : $nome , rg : $rg , cpf : $cpf , email : $email , senha : $senha };
+                $dados = { id : $id , descricao : $descricao };
                 // faz o envio dos dados para o php
                 $.ajax({
-                    url: "CadFuncionarios.php", 
+                    url: "CadLocais.php", 
                     type: "POST", 
                     data: $dados,
                     success : function(data) { 
@@ -46,14 +40,8 @@
             function Limpar(){
                 //limpa os campos
                 $("#codigo").val('');
-                $("#nome").val('');
-                $("#rg").val('');
-                $("#cpf").val('');
-                $("#email").val('');
-                $("#senha").val('');
+                $("#descricao").val('');
             }
-        });
-        
-        */ 
+        });                
     </script>    
 </html> 

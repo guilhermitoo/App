@@ -24,31 +24,5 @@
 ?>
 
     <script src="assets/js/moltran.min.js"></script>
-    <script type="text/javascript">        
-        $(document).ready(function($) {
-            // link para menu de cadastros de equipamentos, funcionários e locais
-//            $("#equipamentos").click(function(){
-//                $("#conteudo").load("equipamentos.html");
-//            });
-//            $("#funcionarios").click(function(){
-//                $("#conteudo").load("funcionarios.html");
-//            });     $       
-//            $("#locais").click(function(){
-//                $("#conteudo").load("locais.html");
-//            });            
-//            // carrega a lista de chamados
-//            $("#chamadosAbertos").click(function(){
-//                $("#conteudo").load("chamadosAbertos.html");
-//            });
-//            $("#chamadosFechados").click(function(){
-//                $("#conteudo").load("chamadosFechados.html");
-//            });            
-//            // abre a lista de chamados abertos sempre que for para home
-//            $("#chamadosAbertos").click();
-        });
-        
-    </script>
 </body>
-<!-- Mirrored from moltran.coderthemes.com/dark/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 28 Sep 2015 21:15:54 GMT -->
-<!--teste-->
 </html>
