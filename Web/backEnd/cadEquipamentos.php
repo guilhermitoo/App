@@ -29,8 +29,9 @@ try{
                 echo 'erro ao cadastrar.';
             }
         }else{
-            $database->update('locais',[
-                    'nome'=>$nome],[
+            $database->update('equipamentos',[
+                    'descricao'=>$nome,
+                    'local_id'=>$local_id],[
                     'id'=>$id]);
             echo 'Equipamento alterado com sucesso.';
         }

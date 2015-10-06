@@ -19,8 +19,8 @@
 <body class="fixed-left">
 
 <?php
-    include 'header.html';
-    include 'footer.html';
+    include 'frontEnd/header.html';
+    include 'frontEnd/footer.html';
 ?>
 
     <script src="assets/js/moltran.min.js"></script>

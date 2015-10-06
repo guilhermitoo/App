@@ -39,7 +39,7 @@
                 $dados = { id : $id , nome : $nome , rg : $rg , cpf : $cpf , email : $email , senha : $senha };
                 // faz o envio dos dados para o php
                 $.ajax({
-                    url: "CadFuncionarios.php", 
+                    url: "../backEnd/CadFuncionarios.php", 
                     type: "POST", 
                     data: $dados,
                     success : function(data) { 
