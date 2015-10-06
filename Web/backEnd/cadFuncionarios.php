@@ -26,30 +26,37 @@ try{
         if (isset($_POST['senha'])){
             $senha = $_POST['senha'];
         }                    
-        // se o id não foi atribuido faz o insert
-        if ($id == '')
-        {
-            $id = $database->insert('funcionarios',[
-                    'nome'=>$nome,
-                    'rg'=>$rg,
-                    'cpf'=>$cpf,
-                    'email'=>$email,
-                    'senha'=>$senha]);
-            if ($id > 0){
-                echo 'Funcionário nº' . $id . ' cadastrado com sucesso.';
-            }else{
-                echo 'erro ao cadastrar';
-            }            
+        
+        // se algum dos dados não foram informados, não deixa cadastrar e retorna mensagem
+        if (empty($nome) or empty($rg) or empty($cpf) or empty($email) or empty($senha)){
+            echo 'erro ao cadastrar: alguns campos estão em branco';
         }else{
-            // se o id foi atribuido, então é update
-            $database->update('funcionarios',[
-                    'nome'=>$nome,
-                    'rg'=>$rg,
-                    'cpf'=>$cpf,
-                    'email'=>$email,
-                    'senha'=>$senha],[
-                    'id'=>$id]);
-            echo 'Funcionário nº' . $id . ' alterado com sucesso.';
+            // se os campos estão preenchidos, prossegue
+            // se o id não foi atribuido faz o insert
+            if ($id == '')
+            {
+                $id = $database->insert('funcionarios',[
+                        'nome'=>$nome,
+                        'rg'=>$rg,
+                        'cpf'=>$cpf,
+                        'email'=>$email,
+                        'senha'=>$senha]);
+                if ($id > 0){
+                    echo 'Funcionário nº' . $id . ' cadastrado com sucesso.';
+                }else{
+                    echo 'erro ao cadastrar';
+                }            
+            }else{
+                // se o id foi atribuido, então é update
+                $database->update('funcionarios',[
+                        'nome'=>$nome,
+                        'rg'=>$rg,
+                        'cpf'=>$cpf,
+                        'email'=>$email,
+                        'senha'=>$senha],[
+                        'id'=>$id]);
+                echo 'Funcionário nº' . $id . ' alterado com sucesso.';
+            }
         }
     }
 }catch(Exception $e){

@@ -22,19 +22,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>MAQLAB12</td>
-                                        <td>Lab 4</td>
-                                        <td style=" width: 50 "><button class="btn btn-info btn-rounded waves-effect waves-light m-b-5" id="btnEditar">Editar</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>MAQLAB12</td>
-                                        <td>Lab 3</td>
-                                        <td style=" width: 50 "><button class="btn btn-info btn-rounded waves-effect waves-light m-b-5" id="btnEditar">Editar</button></td>
-                                    </tr> 
                                 </tbody>
+<!--<td style=" width: 50 "><button class="btn btn-info btn-rounded waves-effect waves-light m-b-5" id="btnEditar">Editar</button></td>-->
                             </table>
                         </div>
                     </div>
@@ -55,12 +44,12 @@
                 // percorre o data
                 for($i=0; $i < data.length; $i++){
                     html += " 	<tr>  " +
-                                    "   <td>  " + data[$i].id + " </td> " +
-                                    "   <td>  " + data[$i].nome + " </td> " +                                                                      
-                                    "   <td>  " + data[$i].local_nome + " </td> " +  LEMBRAR DE BUSCAR O NOME DO LOCAL NO SELECT                                                                    
-                                    "   </tr> ";
-                    $('tbody').html(html);																			
+                                    "   <td>" + data[$i].id + " </td> " +
+                                    "   <td>" + data[$i].descricao + " </td> " +
+                                    "   <td>" + data[$i].local_nome + " </td> " +
+                            "   </tr> ";                    																		
                 }
+                $('tbody').html(html);	
             }
         });
     });

@@ -20,17 +20,7 @@
                                         <th>Nome</th>                                                                                
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Laboratório 3</td> 
-                                        <td style=" width: 50 "><button class='btn btn-info btn-rounded waves-effect waves-light m-b-5'>Editar</button></td>
-                                    </tr>                                    
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Laboratório 4</td>                                        
-                                        <td style=" width: 50 "><button class='btn btn-info btn-rounded waves-effect waves-light m-b-5'>Editar</button></td>
-                                    </tr>                                                         
+                                <tbody>                                                         
                                 </tbody>
                             </table>
                         </div>
@@ -43,6 +33,23 @@
 <?php include 'footer.html'; ?>
 </body>
 <script src="assets/js/moltran.min.js"></script>
-<script type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $.ajax({
+            url: "../backEnd/buscaLocais.php", method: 'get', dataType: 'json', success : function(data) {
+                var html = "";
+
+                // percorre o data
+                for($i=0; $i < data.length; $i++){
+                    html += " 	<tr>  " +
+                                    "   <td>  " + data[$i].id + " </td> " +
+                                    "   <td>  " + data[$i].nome + " </td> " +
+                                    "   </tr> ";
+                    $('tbody').html(html);																			
+                }
+            }
+        });
+    });    
+</script>
 </html>
     
