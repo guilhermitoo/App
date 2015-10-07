@@ -17,13 +17,13 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Descrição</th>
+                                        <th>Data</th>
+                                        <th>Data Conclusão</th>
                                         <th>Usuário</th>
                                         <th>Funcionário</th>
-                                        <th>Equipamento</th>
                                         <th>Local</th>
-                                        <th>Data Fechamento</th>
+                                        <th>Equipamento</th>
                                         <th>Status</th>
-
                                     </tr>
                                 </thead>
                                 <tbody>

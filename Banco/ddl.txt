@@ -37,7 +37,7 @@ create table chamados
 	descricao varchar(200) not null,
 	data_inicio date not null,
 	data_fim date,
-	status int not null,
+	status int not null, -- 1 - pendente, 2 - realizado, 3 - cancelado
 	usuario_id int not null,
 	funcionario_id int not null,
 	equipamento_id int not null,

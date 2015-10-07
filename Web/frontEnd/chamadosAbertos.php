@@ -17,12 +17,11 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Descrição</th>
+                                        <th>Data</th>
                                         <th>Usuário</th>
                                         <th>Equipamento</th>
                                         <th>Local</th>
-                                        <th>Data</th>
                                         <th>Fechar Chamado</th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
