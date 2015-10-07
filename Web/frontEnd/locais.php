@@ -5,7 +5,7 @@
         <?php include_once 'header.html'; ?>
 		<div class='col-md-12'>			        
             <div class="col-md-12">
-                <input type=hidden id="codigo" />
+                <input type=hidden id="id" />
                 <br /><label>Local</label>
                 <input type="text" class="form-control" id="nome" placeholder="Digite o nome do local"/>
                 <br />
@@ -40,7 +40,7 @@
             function Limpar(){
                 //limpa os campos
                 $("#id").val('');
-                $("#descricao").val('');
+                $("#nome").val('');
             }
         });                
     </script>    

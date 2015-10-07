@@ -23,14 +23,22 @@ try{
         if (isset($_POST['email'])){
             $email = $_POST['email'];
         }
-        if (isset($_POST['senha'])){
-            $senha = $_POST['senha'];
+        if (isset($_POST['senha1'])){
+            $senha1 = md5($_POST['senha1']);
+        }                    
+        if (isset($_POST['senha2'])){
+            $senha2 = md5($_POST['senha2']);
         }                    
         
         // se algum dos dados não foram informados, não deixa cadastrar e retorna mensagem
-        if (empty($nome) or empty($rg) or empty($cpf) or empty($email) or empty($senha)){
+        if (empty($nome) or empty($rg) or empty($cpf) or empty($email) or empty($senha1) or empty($senha2)){
             echo 'erro ao cadastrar: alguns campos estão em branco';
         }else{
+            // compara senha 1 e senha 2, para verificar se estão iguais
+            if (! ($senha1 === $senha2) ){
+                echo 'erro ao cadastrar: as senhas não conferem';
+                exit;
+            }
             // se os campos estão preenchidos, prossegue
             // se o id não foi atribuido faz o insert
             if ($id == '')
@@ -40,7 +48,7 @@ try{
                         'rg'=>$rg,
                         'cpf'=>$cpf,
                         'email'=>$email,
-                        'senha'=>$senha]);
+                        'senha'=>$senha1]);
                 if ($id > 0){
                     echo 'Funcionário nº' . $id . ' cadastrado com sucesso.';
                 }else{
@@ -53,7 +61,7 @@ try{
                         'rg'=>$rg,
                         'cpf'=>$cpf,
                         'email'=>$email,
-                        'senha'=>$senha],[
+                        'senha'=>$senha1],[
                         'id'=>$id]);
                 echo 'Funcionário nº' . $id . ' alterado com sucesso.';
             }

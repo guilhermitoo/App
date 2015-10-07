@@ -15,10 +15,13 @@
                 <br /><label>Email</label>
                 <input type="text" class="form-control" id="email" placeholder="Digite seu email..." maxlength="50"/>			
                 <br /><label>Senha</label>
-                <input type="password" class="form-control" id="senha" placeholder="Fique atento aos pilares, escolha sua senha..." maxlength="50"/>								
+                <input type="password" class="form-control" id="senha1" placeholder="Fique atento aos pilares, escolha sua senha..." maxlength="50"/>								                
+                <br /><label>Confirmar Senha</label>
+                <input type="password" class="form-control" id="senha2" placeholder="Repita sua senha..." maxlength="50"/>								
                 <br />
                 <button id="btnSalvar" class="btn btn-success btn-rounded waves-effect waves-light m-b-5">Salvar</button>
                 <a id="btnListar" class="btn btn-info btn-rounded waves-effect waves-light m-b-5" href="listaFuncionarios.php">Listar</a>
+                <a id="btnLimpar" class="btn btn-warning btn-rounded waves-effect waves-light m-b-5">Limpar</a>
             </div>										            
 		</div>
         <?php include_once 'footer.html'; ?>
@@ -34,30 +37,30 @@
                 $rg = $("#rg").val();
                 $cpf = $("#cpf").val();
                 $email = $("#email").val();
-                $senha = $("#senha").val();                                
+                $senha1 = $("#senha1").val();
+                $senha2 = $("#senha2").val();
                 // atribui para o array, para enviar no post
-                $dados = { id : $id , nome : $nome , rg : $rg , cpf : $cpf , email : $email , senha : $senha };
+                $dados = { id : $id , nome : $nome , rg : $rg , cpf : $cpf , email : $email , senha1 : $senha1 , senha2 : $senha2 };
                 // faz o envio dos dados para o php
                 $.ajax({
                     url: "../backEnd/CadFuncionarios.php", 
                     type: "POST", 
                     data: $dados,
                     success : function(data) { 
-                        alert(data);
-                        Limpar();
+                        alert(data);            
                     }
                 });
             });                          
-            
-            function Limpar(){
+            $("#btnLimpar").click(function(r){
                 //limpa os campos
                 $("#id").val('');
                 $("#nome").val('');
                 $("#rg").val('');
                 $("#cpf").val('');
                 $("#email").val('');
-                $("#senha").val('');
-            }
+                $("#senha1").val('');
+                $("#senha2").val('');
+            });
         });
     </script>    
 </html>

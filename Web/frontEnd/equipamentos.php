@@ -60,7 +60,7 @@
             function Limpar(){
                 //limpa os campos
                 $("#id").val('');
-                $("#nome").val('');
+                $("#descricao").val('');
             }
         });
  

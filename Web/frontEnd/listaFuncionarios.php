@@ -14,21 +14,16 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="table-responsive">
                             <table class="table">
-                                <thead>
+                                <thead class="jumbotron">
                                     <tr>
                                         <th>ID</th>
                                         <th>Nome</th>
-                                        <th>Email</th>
-                                        <th>Opções</th>
+                                        <th>Registro Geral (RG)</th>
+                                        <th>Cadastro de Pessoa Física (CPF)</th>
+                                        <th>Email</th>                                        
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Junior Garcia Filho</td>
-                                        <td>junio.gf@hotmail.com</td>
-                                        <td style="width: 50"><button class="btn btn-info btn-rounded waves-effect waves-light m-b-5" id="btnEditar">Editar</button></td>
-                                    </tr>                                    
+                                <tbody>                                 
                                 </tbody>
                             </table>
                         </div>
@@ -41,6 +36,26 @@
 <?php include 'footer.html'; ?>
 </body>
 <script src="assets/js/moltran.min.js"></script>
-<script type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $.ajax({
+            url: "../backEnd/buscaFuncionarios.php", method: "get", dataType: "json", success : function(data) {
+                var html = "";
+
+                // percorre o data
+                for($i=0; $i < data.length; $i++){
+                    html += " 	<tr>  " +
+                                    "   <td>" + data[$i].id + " </td> " +
+                                    "   <td>" + data[$i].nome + " </td> " +
+                                    "   <td>" + data[$i].rg + " </td> " +
+                                    "   <td>" + data[$i].cpf + " </td> " +
+                                    "   <td>" + data[$i].email + " </td> " +
+                            "   </tr> ";                    																		
+                }
+                $('tbody').html(html);	
+            }
+        });
+    });
+</script>
 </html>
     
