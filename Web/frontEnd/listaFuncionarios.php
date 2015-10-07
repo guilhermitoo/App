@@ -18,8 +18,9 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Nome</th>
-                                        <th>Registro Geral (RG)</th>
-                                        <th>Cadastro de Pessoa Física (CPF)</th>
+                                        <th>RG</th>
+                                        <th>CPF</th>
+                                        <th>Período trabalho</th>
                                         <th>Email</th>                                        
                                         <th></th>                                        
                                     </tr>
@@ -54,6 +55,7 @@
                                     "<td>" + data[$i].nome + " </td> " +
                                     "<td>" + data[$i].rg + " </td> " +
                                     "<td>" + data[$i].cpf + " </td> " +
+                                    "<td>" + TextoPeriodo(data[$i].periodo) + " </td> " +
                                     "<td>" + data[$i].email + " </td> " +
                                     "<td style='width: 50'><button class='btn btn-danger btn-xs waves-effect waves-light remover'>Excluir</button></td>" +
                                 "</tr> ";                    																		
@@ -81,6 +83,24 @@
                     }
                 });
             }
+        }
+        
+        function TextoPeriodo(p){
+            var txt;
+            switch(p){
+                case 'M':
+                    txt = 'Manhã';
+                    break;
+                case 'T':
+                    txt = 'Tarde';
+                    break;
+                case 'N':
+                    txt = 'Noite';
+                    break;
+                default:
+                    txt = '';
+            }
+            return txt;
         }
     });
 </script>

@@ -20,6 +20,9 @@ try{
         if (isset($_POST['cpf'])){
             $cpf = $_POST['cpf'];
         }
+        if (isset($_POST['periodo'])){
+            $periodo = $_POST['periodo'];
+        }
         if (isset($_POST['email'])){
             $email = $_POST['email'];
         }
@@ -31,7 +34,7 @@ try{
         }                    
         
         // se algum dos dados não foram informados, não deixa cadastrar e retorna mensagem
-        if (empty($nome) or empty($rg) or empty($cpf) or empty($email) or empty($senha1) or empty($senha2)){
+        if (empty($nome) or empty($rg) or empty($cpf) or empty($periodo) or empty($email) or empty($senha1) or empty($senha2)){
             echo 'erro ao cadastrar: alguns campos estão em branco';
         }else{
             // compara senha 1 e senha 2, para verificar se estão iguais
@@ -47,6 +50,7 @@ try{
                         'nome'=>$nome,
                         'rg'=>$rg,
                         'cpf'=>$cpf,
+                        'periodo'=>$periodo,
                         'email'=>$email,
                         'senha'=>$senha1]);
                 if ($id > 0){
@@ -60,6 +64,7 @@ try{
                         'nome'=>$nome,
                         'rg'=>$rg,
                         'cpf'=>$cpf,
+                        'periodo'=>$periodo,
                         'email'=>$email,
                         'senha'=>$senha1],[
                         'id'=>$id]);

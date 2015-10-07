@@ -22,8 +22,7 @@ else{
                                ['equipamentos.id',
                                 'equipamentos.descricao',
                                 'locais.nome(local_nome)'],
-                               ['equipamentos.id'=>$id,
-                                'ORDER'=>'equipamentos.descricao']);
+                               ['equipamentos.id'=>$id]);
 }
 
 $query = json_encode($query);

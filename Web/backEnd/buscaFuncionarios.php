@@ -10,10 +10,10 @@ else{
 }
 
 if ( empty($id) ){
-	$query = $database->select('funcionarios',['id','nome','rg','cpf','email','senha']);
+	$query = $database->select('funcionarios',['id','nome','rg','cpf','periodo','email','senha'],['ORDER'=>'nome']);
 }
 else{
-	$query = $database->select('funcionarios',['id','nome','rg','cpf','email','senha'],['id'=>$id]);
+	$query = $database->select('funcionarios',['id','nome','rg','cpf','periodo','email','senha'],['id'=>$id]);
 }
 
 $query = json_encode($query);

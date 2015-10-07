@@ -10,7 +10,7 @@ else{
 }
 
 if ( empty($id) ){
-	$query = $database->select('usuarios',['id','nome','email','senha']);
+	$query = $database->select('usuarios',['id','nome','email','senha'],['ORDER'=>'nome']);
 }
 else{
 	$query = $database->select('usuarios',['id','nome','email','senha'],['id'=>$id]);

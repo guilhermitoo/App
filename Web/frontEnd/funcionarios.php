@@ -12,11 +12,17 @@
                 <input type="text" class="form-control" id="rg" placeholder="EX: 12.345.678-9" onkeydown="formataRG(this,event);" maxlength="12"/>
                 <br /><label>Cadastro de Pessoa Fisica (CPF)</label>
                 <input type="text" class="form-control" id="cpf" placeholder="EX: 123.456.789-00" onkeydown="formataCPF(this,event);" maxlength="14"/>
+                <br /><label>Período de trabalho</label>
+                <select class="select2-dropdown--below form-control" id="periodo">
+                    <option value="M">Manhã</option>
+                    <option value="T">Tarde</option>
+                    <option value="N">Noite</option>
+                </select>
                 <br /><label>Email</label>
                 <input type="text" class="form-control" id="email" placeholder="Digite seu email..." maxlength="50"/>			
                 <br /><label>Senha</label>
                 <input type="password" class="form-control" id="senha1" placeholder="Fique atento aos pilares, escolha sua senha..." maxlength="50"/>								                
-                <br /><label>Confirmar Senha</label>
+                <br /><label>Confirmar senha</label>
                 <input type="password" class="form-control" id="senha2" placeholder="Repita sua senha..." maxlength="50"/>								
                 <br />
                 <button id="btnSalvar" class="btn btn-success btn-rounded waves-effect waves-light m-b-5">Salvar</button>
@@ -36,11 +42,12 @@
                 $nome = $("#nome").val();
                 $rg = $("#rg").val();
                 $cpf = $("#cpf").val();
+                $periodo = $("#periodo").val();
                 $email = $("#email").val();
                 $senha1 = $("#senha1").val();
                 $senha2 = $("#senha2").val();
                 // atribui para o array, para enviar no post
-                $dados = { id : $id , nome : $nome , rg : $rg , cpf : $cpf , email : $email , senha1 : $senha1 , senha2 : $senha2 };
+                $dados = { id : $id , nome : $nome , rg : $rg , cpf : $cpf , periodo : $periodo , email : $email , senha1 : $senha1 , senha2 : $senha2 };
                 // faz o envio dos dados para o php
                 $.ajax({
                     url: "../backEnd/CadFuncionarios.php", 
@@ -57,6 +64,7 @@
                 $("#nome").val('');
                 $("#rg").val('');
                 $("#cpf").val('');
+                $("#periodo").val('M');
                 $("#email").val('');
                 $("#senha1").val('');
                 $("#senha2").val('');

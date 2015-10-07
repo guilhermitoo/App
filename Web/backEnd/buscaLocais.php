@@ -10,7 +10,7 @@ else{
 }
 
 if ( empty($id) ){
-	$query = $database->select('locais',['id','nome']);
+	$query = $database->select('locais',['id','nome'],['ORDER'=>'nome']);
 }
 else{
 	$query = $database->select('locais',['id','nome'],['id'=>$id]);
