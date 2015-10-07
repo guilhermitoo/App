@@ -49,7 +49,7 @@
                         html += "<tr>" +
                                     "<td data-id='"+data[$i].id+"'>" + data[$i].id + "</td>" +
                                     "<td>" + data[$i].nome + " </td>" +
-                                    "<td style='width: 50'><button class='btn btn-danger btn-xs waves-effect waves-light remover'>Excluir</button></td>"
+                                    "<td style='width: 50'><button class='btn btn-danger btn-xs waves-effect waves-light remover'>Excluir</button></td>" +
                                 "</tr>";
                         $('tbody').html(html);		
                         $(".remover").bind("click", Excluir);
@@ -64,7 +64,7 @@
 			// pega o id da linha clicada (utilizando data-)
 			var id = par.find('td[data-id]').data('id');       
             // verifica se o usuário REALMENTE deseja excluir o equipamento
-            if(confirm("Deseja realmente excluir o local " + id + "?")){
+            if(confirm("Deseja realmente excluir o local número " + id + "?")){
                 var tabela = 'locais';
                 // passa o id que será excluido e a tabela
                 var dados = { id : id , tabela : tabela };            

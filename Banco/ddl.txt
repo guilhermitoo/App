@@ -27,7 +27,7 @@ create table equipamentos
 	id int not null primary key auto_increment,
 	descricao varchar(50) not null,
 	local_id int not null,
-	CONSTRAINT fkLocal FOREIGN KEY (local_id) REFERENCES locais (id)
+	CONSTRAINT fkLocal FOREIGN KEY (local_id) REFERENCES locais (id) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
 create table chamados
@@ -40,9 +40,9 @@ create table chamados
 	usuario_id int not null,
 	funcionario_id int not null,
 	equipamento_id int not null,
-	CONSTRAINT fkUsuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
-	CONSTRAINT fkFuncionario FOREIGN KEY (funcionario_id) REFERENCES funcionarios(id),
-	CONSTRAINT fkEquipamento FOREIGN KEY (equipamento_id) REFERENCES equipamentos(id)
+	CONSTRAINT fkUsuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON UPDATE NO ACTION ON DELETE NO ACTION,
+	CONSTRAINT fkFuncionario FOREIGN KEY (funcionario_id) REFERENCES funcionarios(id) ON UPDATE NO ACTION ON DELETE NO ACTION,
+	CONSTRAINT fkEquipamento FOREIGN KEY (equipamento_id) REFERENCES equipamentos(id) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
 
