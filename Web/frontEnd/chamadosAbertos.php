@@ -13,41 +13,18 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="table-responsive">
                             <table class="table">
-                                <thead>
+                                <thead class="jumbotron">
                                     <tr>
                                         <th>ID</th>
                                         <th>Descrição</th>
-                                        <th>Data</th>
-                                        <th>Usuário</th>
-                                        <th>Equipamento</th>
+                                        <th>Data Abertura</th>                                        
+                                        <th>Usuário</th>                                        
                                         <th>Local</th>
-                                        <th>Fechar Chamado</th>
+                                        <th>Equipamento</th>
+                                        <th>Fechar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Maquina sem DEV C++</td>
-                                        <td>Guilherme Dias</td>
-                                        <td>MAQLAB12</td>
-                                        <td>Lab.4</td>
-                                        <td>xx/xx/xxxx</td>
-                                        <td class="text-justify">
-                                            <button data-toggle="tooltip" title="Realizado" class="btn btn-icon waves-effect waves-light btn-success m-b-2"><i class="fa fa-thumbs-o-up"></i></button> 
-                                            <button data-toggle="tooltip" title="Cancelado" class="btn btn-icon waves-effect waves-light btn-danger m-b-2"><i class="fa fa-remove"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Sem Ar Condicionado</td>
-                                        <td>Thaysa Avanço</td>
-                                        <td>MAQLAB13</td>
-                                        <td>Lab.2</td>
-                                        <td>xx/xx/xxxx</td>
-                                        <td class="text-justify">
-                                            <button data-toggle="tooltip" title="Realizado" class="btn btn-icon waves-effect waves-light btn-success m-b-2"><i class="fa fa-thumbs-o-up"></i></button> 
-                                            <button data-toggle="tooltip" title="Cancelado" class="btn btn-icon waves-effect waves-light btn-danger m-b-2"><i class="fa fa-remove"></i></button></td>
-                                    </tr>
-
                                 </tbody>
                             </table>
                         </div>
@@ -59,6 +36,35 @@
 </div>
     <?php include_once 'footer.html'; ?>
 </body>
-    <script src="assets/js/moltran.min.js"></script>     
+    <script src="assets/js/moltran.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            carregaLista();
+        });
+
+        function carregaLista(){
+            $.ajax({
+                url: "../backEnd/buscaChamados.php?tipo=A", method: "get", dataType: "json", success: function(data) {                
+                    var html = "";
+
+                    for($i=0; $i < data.length; $i++){
+                            html += "<tr>  " +
+                                    "<td>" + data[$i].id + " </td> " +
+                                    "<td>" + data[$i].descricao + " </td> " +
+                                    "<td>" + data[$i].data_inicio + " </td> " +
+                                    "<td>" + data[$i].nome_usuario + " </td> " +
+                                    "<td>" + data[$i].equipamento_local + " </td> " +
+                                    "<td>" + data[$i].equipamento_descricao + " </td> " +
+                                    "<td class='text-justify'>"+
+                                        "<button data-toggle='tooltip' title='Realizado' class='btn btn-icon waves-effect waves-light btn-success m-b-2'><i class='fa fa-thumbs-o-up'></i></button> "+
+                                        "<button data-toggle='tooltip' title='Cancelado' class='btn btn-icon waves-effect waves-light btn-danger m-b-2'><i class='fa fa-remove'></i></button></td>"+
+                                    "</tr> ";     
+                        // adicionar o código nos dois botões
+                    }
+                    $("tbody").html(html);
+                }
+            });
+        }
+    </script>
 </html>
     
