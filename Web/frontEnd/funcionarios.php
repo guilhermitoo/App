@@ -9,9 +9,7 @@
                 <br /><label>Nome</label>
                 <input type="text" class="form-control" id="nome" placeholder="Digite seu nome..." maxlength="100"/>
                 <br /><label>Registro Geral (RG)</label>
-                <input type="text" class="form-control" id="rg" placeholder="EX: 12.345.678-9" onkeydown="formataRG(this,event);" maxlength="12"/>
-                <br /><label>Cadastro de Pessoa Fisica (CPF)</label>
-                <input type="text" class="form-control" id="cpf" placeholder="EX: 123.456.789-00" onkeydown="formataCPF(this,event);" maxlength="14"/>
+                <input type="text" class="form-control" id="rg" placeholder="EX: 12.345.678-9" onkeydown="formataRG(this,event);" maxlength="12"/>                
                 <br /><label>Período de trabalho</label>
                 <select class="select2-dropdown--below form-control" id="periodo">
                     <option value="M">Manhã</option>
@@ -40,14 +38,13 @@
                 // pega os dados dos campos
                 $id = $("#id").val();
                 $nome = $("#nome").val();
-                $rg = $("#rg").val();
-                $cpf = $("#cpf").val();
+                $rg = $("#rg").val();                
                 $periodo = $("#periodo").val();
                 $email = $("#email").val();
                 $senha1 = $("#senha1").val();
                 $senha2 = $("#senha2").val();
                 // atribui para o array, para enviar no post
-                $dados = { id : $id , nome : $nome , rg : $rg , cpf : $cpf , periodo : $periodo , email : $email , senha1 : $senha1 , senha2 : $senha2 };
+                $dados = { id : $id , nome : $nome , rg : $rg , periodo : $periodo , email : $email , senha1 : $senha1 , senha2 : $senha2 };
                 // faz o envio dos dados para o php
                 $.ajax({
                     url: "../backEnd/CadFuncionarios.php", 
@@ -62,8 +59,7 @@
                 //limpa os campos
                 $("#id").val('');
                 $("#nome").val('');
-                $("#rg").val('');
-                $("#cpf").val('');
+                $("#rg").val('');                
                 $("#periodo").val('M');
                 $("#email").val('');
                 $("#senha1").val('');

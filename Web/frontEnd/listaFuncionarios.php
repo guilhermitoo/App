@@ -18,8 +18,7 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Nome</th>
-                                        <th>RG</th>
-                                        <th>CPF</th>
+                                        <th>RG</th>                                        
                                         <th>Período trabalho</th>
                                         <th>Email</th>                                        
                                         <th></th>                                        
@@ -38,6 +37,7 @@
 <?php include 'footer.html'; ?>
 </body>
 <script src="assets/js/moltran.min.js"></script>
+<script src="assets/js/util.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         // ao iniciar a tela, executa a função carrega lista
@@ -51,13 +51,12 @@
                     // percorre o data
                     for($i=0; $i < data.length; $i++){
                         html += "<tr>  " +
-                                    "<td data-id='"+data[$i].id+"'>" + data[$i].id + " </td> " +
-                                    "<td>" + data[$i].nome + " </td> " +
-                                    "<td>" + data[$i].rg + " </td> " +
-                                    "<td>" + data[$i].cpf + " </td> " +
-                                    "<td>" + TextoPeriodo(data[$i].periodo) + " </td> " +
-                                    "<td>" + data[$i].email + " </td> " +
-                                    "<td style='width: 50'><button class='btn btn-danger btn-xs waves-effect waves-light remover'>Excluir</button></td>" +
+                                "<td data-id='"+data[$i].id+"'>" + data[$i].id + " </td> " +
+                                "<td>" + data[$i].nome + " </td> " +
+                                "<td>" + data[$i].rg + " </td> " +
+                                "<td>" + getPeriodo(data[$i].periodo) + " </td> " +
+                                "<td>" + data[$i].email + " </td> " +
+                                "<td style='width: 50'><button class='btn btn-danger btn-xs waves-effect waves-light remover'>Excluir</button></td>" +
                                 "</tr> ";                    																		
                     }
                     $('tbody').html(html);	
@@ -83,24 +82,6 @@
                     }
                 });
             }
-        }
-        
-        function TextoPeriodo(p){
-            var txt;
-            switch(p){
-                case 'M':
-                    txt = 'Manhã';
-                    break;
-                case 'T':
-                    txt = 'Tarde';
-                    break;
-                case 'N':
-                    txt = 'Noite';
-                    break;
-                default:
-                    txt = '';
-            }
-            return txt;
         }
     });
 </script>

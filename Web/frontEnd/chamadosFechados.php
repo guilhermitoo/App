@@ -13,11 +13,11 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="table-responsive">
                             <table class="table">
-                                <thead>
+                                <thead class="jumbotron">
                                     <tr>
                                         <th>ID</th>
                                         <th>Descrição</th>
-                                        <th>Data</th>
+                                        <th>Data Abertura</th>
                                         <th>Data Conclusão</th>
                                         <th>Usuário</th>
                                         <th>Funcionário</th>
@@ -26,27 +26,7 @@
                                         <th>Status</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Maquina sem DEV C++</td>
-                                        <td>Guilherme Dias</td>
-                                        <td>Junior</td>
-                                        <td>MAQLAB12</td>
-                                        <td>Lab.4</td>
-                                        <td>xx/xx/xxxx</td>
-                                        <td>Realizado</td>
-                                    </tr>
-                                    <tr>
-                                         <td>1</td>
-                                        <td>Sem Ar Condicionado</td>
-                                        <td>Thaysa Avanço</td>
-                                        <td>Junior</td>
-                                        <td>MAQLAB13</td>
-                                        <td>Lab.2</td>
-                                        <td>xx/xx/xxxx</td>
-                                        <td>Cancelado</td>              
-                                    </tr>
+                                <tbody>                                   
                                 </tbody>
                             </table>
                         </div>
@@ -59,6 +39,34 @@
 <?php include_once 'footer.html'; ?>
 </body>
 <script src="assets/js/moltran.min.js"></script>
-<script type="text/javascript"></script>
+<script src="assets/js/util.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        carregaLista();
+    });
+    
+    function carregaLista(){
+        $.ajax({
+            url: "../backEnd/buscaChamados.php?tipo=F", method: "get", dataType: "json", success: function(data) {                
+                var html = "";
+                
+                for($i=0; $i < data.length; $i++){
+                        html += "<tr>  " +
+                                    "<td>" + data[$i].id + " </td> " +
+                                    "<td>" + data[$i].descricao + " </td> " +
+                                    "<td>" + data[$i].data_inicio + " </td> " +
+                                    "<td>" + data[$i].data_fim + " </td> " +
+                                    "<td>" + data[$i].nome_usuario + " </td> " +
+                                    "<td>" + data[$i].nome_funcionario + " </td> " +
+                                    "<td>" + data[$i].equipamento_local + " </td> " +
+                                    "<td>" + data[$i].equipamento_descricao + " </td> " +
+                                    "<td>" + getStatus(data[$i].status) + "</td> " +
+                                "</tr> ";                    																		
+                }
+                $("tbody").html(html);
+            }
+        });
+    }
+</script>
 </html>
     

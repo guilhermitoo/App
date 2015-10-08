@@ -21,8 +21,7 @@ if ( empty($id)){
         $filtro = 'chamados.status';        
     }else{ // lista chamados fechados
         $filtro = 'chamados.status[>]';
-    }
-    echo $filtro;
+    }    
     $query = $database->select('chamados', //tabela do select
                               [ '[><]usuarios'=>['usuario_id'=>'id'],
                                 '[><]funcionarios'=>['funcionario_id'=>'id'],

@@ -1,10 +1,10 @@
 <?php
 
-require "db.php";
+require "/backEnd/db.php";
 
 if (isset($database)){
-    echo "deu certo";
+    echo "Banco conectado.";
 }
 else{
-    echo "deu ruim";
+    echo "Falha ao conectar.";
 }

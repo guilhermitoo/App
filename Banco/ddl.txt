@@ -10,8 +10,7 @@ create table funcionarios
 (
 	id int not null primary key auto_increment,
 	nome varchar(100) not null,
-	rg varchar(12) not null,
-	cpf varchar(14) not null unique,
+	rg varchar(12) not null unique,
 	periodo char(1) not null,
 	email varchar(50) not null,
 	senha varchar(50) not null	
