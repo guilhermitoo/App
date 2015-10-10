@@ -27,3 +27,12 @@ function getPeriodo(p){ // função para exibir o texto do período de trabalho
     }
     return txt;
 }
+
+function fechaChamado(id,tipo){
+    var dados = { id : id , tipo : tipo };
+    $.ajax({
+            url: "../backEnd/fecharChamado.php", type: "POST", data: dados, success : function(data) {
+                return data;                
+            }
+    });            
+}
