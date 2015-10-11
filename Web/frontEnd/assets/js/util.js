@@ -28,11 +28,19 @@ function getPeriodo(p){ // função para exibir o texto do período de trabalho
     return txt;
 }
 
-function fechaChamado(id,tipo){
-    var dados = { id : id , tipo : tipo };
-    $.ajax({
-            url: "../backEnd/fecharChamado.php", type: "POST", data: dados, success : function(data) {
-                return data;                
-            }
-    });            
+function formataData(data){ // função que converte o formato Y-M-D da data do MySql para D/M/Y
+    var dataFormatada;
+    var dia;
+    var mes;
+    var ano;
+    // pega o dia da data trazida em php, exemplo 2015/10/15
+    // 15
+    dia = data.substr(8,2);
+    // 10
+    mes = data.substr(5,2);
+    // 2015
+    ano = data.substr(0,4);
+    
+    dataFormatada = dia + ' / ' + mes + ' / ' + ano;
+    return dataFormatada;
 }

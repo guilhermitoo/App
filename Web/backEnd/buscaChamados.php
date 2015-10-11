@@ -22,11 +22,12 @@ if ( empty($id)){
     }else{ // lista chamados fechados
         $filtro = 'chamados.status[>]';
     }    
+    
     $query = $database->select('chamados', //tabela do select
-                              [ '[><]usuarios'=>['usuario_id'=>'id'],
-                                '[><]funcionarios'=>['funcionario_id'=>'id'],
-                                '[><]equipamentos'=>['equipamento_id'=>'id'],
-                                '[><]locais'=>['equipamentos.local_id'=>'id']], //join
+                              [ '[>]usuarios'=>['usuario_id'=>'id'],
+                                '[>]funcionarios'=>['funcionario_id'=>'id'],
+                                '[>]equipamentos'=>['equipamento_id'=>'id'],
+                                '[>]locais'=>['equipamentos.local_id'=>'id']], //join
                               ['chamados.id',
                                'chamados.descricao',
                                'chamados.data_inicio',
@@ -40,10 +41,10 @@ if ( empty($id)){
                                 'ORDER'=>'chamados.data_inicio']);
 }else{
 	$query = $database->select('chamados', //tabela do select
-                              [ '[><]usuarios'=>['usuario_id'=>'id'],
-                                '[><]funcionarios'=>['funcionario_id'=>'id'],
-                                '[><]equipamentos'=>['equipamento_id'=>'id'],
-                                '[><]locais'=>['equipamentos.local_id'=>'id']], //join
+                              [ '[>]usuarios'=>['usuario_id'=>'id'],
+                                '[>]funcionarios'=>['funcionario_id'=>'id'],
+                                '[>]equipamentos'=>['equipamento_id'=>'id'],
+                                '[>]locais'=>['equipamentos.local_id'=>'id']], //join
                               ['chamados.id',
                                'chamados.descricao',
                                'chamados.data_inicio',
@@ -59,3 +60,19 @@ if ( empty($id)){
 $query = json_encode($query);
 
 echo $query;
+
+//select 	ch.id,
+//        ch.descricao,
+//        DATE_FORMAT(ch.data_inicio, '%d/%m/%Y') as data_inicio ,
+//        DATE_FORMAT(ch.data_fim, '%d/%m/%Y') as data_fim ,
+//        ch.status,
+//        us.nome as nome_usuario,
+//        fu.nome as nome_funcionario,
+//        eq.descricao as equipamento_descricao,
+//        lo.nome as equipamento_local        
+//from chamados ch
+//left join usuarios us on (ch.usuario_id = us.id)
+//left join funcionarios fu on (ch.funcionario_id = fu.id)
+//left join equipamentos eq on (ch.equipamento_id = eq.id)
+//left join locais lo on (eq.local_id = lo.id)
+//where ch.id = 

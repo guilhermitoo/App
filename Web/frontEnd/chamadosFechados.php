@@ -43,30 +43,30 @@
 <script type="text/javascript">
     $(document).ready(function(){
         carregaLista();
-    });
     
-    function carregaLista(){
-        $.ajax({
-            url: "../backEnd/buscaChamados.php?tipo=F", method: "get", dataType: "json", success: function(data) {                
-                var html = "";
-                
-                for($i=0; $i < data.length; $i++){
-                        html += "<tr>  " +
-                                    "<td>" + data[$i].id + " </td> " +
-                                    "<td>" + data[$i].descricao + " </td> " +
-                                    "<td>" + data[$i].data_inicio + " </td> " +
-                                    "<td>" + data[$i].data_fim + " </td> " +
-                                    "<td>" + data[$i].nome_usuario + " </td> " +
-                                    "<td>" + data[$i].nome_funcionario + " </td> " +
-                                    "<td>" + data[$i].equipamento_local + " </td> " +
-                                    "<td>" + data[$i].equipamento_descricao + " </td> " +
-                                    "<td>" + getStatus(data[$i].status) + "</td> " +
-                                "</tr> ";                    																		
+        function carregaLista(){
+            $.ajax({
+                url: "../backEnd/buscaChamados.php?tipo=F", method: "get", dataType: "json", success: function(data) {                
+                    var html = "";
+
+                    for($i=0; $i < data.length; $i++){
+                            html += "<tr>  " +
+                                        "<td>" + data[$i].id + " </td> " +
+                                        "<td>" + data[$i].descricao + " </td> " +
+                                        "<td>" + formataData(data[$i].data_inicio) + " </td> " +
+                                        "<td>" + formataData(data[$i].data_fim) + " </td> " +
+                                        "<td>" + data[$i].nome_usuario + " </td> " +
+                                        "<td>" + data[$i].nome_funcionario + " </td> " +
+                                        "<td>" + data[$i].equipamento_local + " </td> " +
+                                        "<td>" + data[$i].equipamento_descricao + " </td> " +
+                                        "<td>" + getStatus(data[$i].status) + "</td> " +
+                                    "</tr> ";                    																		
+                    }
+                    $("tbody").html(html);
                 }
-                $("tbody").html(html);
-            }
-        });
-    }
+            });
+        }
+    });
 </script>
 </html>
     

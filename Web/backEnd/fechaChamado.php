@@ -31,11 +31,11 @@ if(isset($_POST)){
             exit;
         }
         // inicia a sessão
-        session_start();
+//        session_start();
         // pega o usuário logado
-        $funcionario_id = $_SESSION['funcionario_id'];
-        // pega a data atual
-        $data = ;
+        $funcionario_id = 1; //$_SESSION['funcionario_id'];
+        // pega a data atual (no mysql, a data deve ser inserida em ano-mes-dia
+        $data = date('y-m-d');
         // agora faz o update no banco para modificar o status do chamado, 
         // atribuir a data de fechamento e atribuir o usuário que realizou o fechamento do chamado
         $qtd = $database->update('chamados',[

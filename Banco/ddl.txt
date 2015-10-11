@@ -38,7 +38,7 @@ create table chamados
 	data_fim date,
 	status int not null, -- 1 - pendente, 2 - realizado, 3 - cancelado
 	usuario_id int not null,
-	funcionario_id int not null,
+	funcionario_id int,
 	equipamento_id int not null,
 	CONSTRAINT fkUsuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON UPDATE NO ACTION ON DELETE NO ACTION,
 	CONSTRAINT fkFuncionario FOREIGN KEY (funcionario_id) REFERENCES funcionarios(id) ON UPDATE NO ACTION ON DELETE NO ACTION,

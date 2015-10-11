@@ -41,56 +41,67 @@
     <script type="text/javascript">
         $(document).ready(function(){
             carregaLista();
-        });
 
-        function carregaLista(){
-            $.ajax({
-                url: "../backEnd/buscaChamados.php?tipo=A", method: "get", dataType: "json", success: function(data) {                
-                    var html = "";
+            function carregaLista(){
+                $.ajax({
+                    url: "../backEnd/buscaChamados.php?tipo=A", method: "get", dataType: "json", success: function(data) {                
+                        var html = "";
 
-                    for($i=0; $i < data.length; $i++){
-                            html += "<tr>  " +
-                                    "<td data-id='"+data[$i].id+"'>" + data[$i].id + " </td> " +
-                                    "<td>" + data[$i].descricao + " </td> " +
-                                    "<td>" + data[$i].data_inicio + " </td> " +
-                                    "<td>" + data[$i].nome_usuario + " </td> " +
-                                    "<td>" + data[$i].equipamento_local + " </td> " +
-                                    "<td>" + data[$i].equipamento_descricao + " </td> " +
-                                    "<td class='text-justify'>"+
-                                        "<button data-toggle='tooltip' title='Realizado' class='btn btn-icon waves-effect waves-light btn-success m-b-2 realizar'><i class='fa fa-thumbs-o-up'></i></button> "+
-                                        "<button data-toggle='tooltip' title='Cancelado' class='btn btn-icon waves-effect waves-light btn-danger m-b-2 cancelar'><i class='fa fa-remove'></i></button></td>"+
-                                    "</tr> ";     
-                     
+                        for($i=0; $i < data.length; $i++){
+                                html += "<tr>  " +
+                                        "<td data-id='"+data[$i].id+"'>" + data[$i].id + " </td> " +
+                                        "<td>" + data[$i].descricao + " </td> " +
+                                        "<td>" + formataData(data[$i].data_inicio) + " </td> " +
+                                        "<td>" + data[$i].nome_usuario + " </td> " +
+                                        "<td>" + data[$i].equipamento_local + " </td> " +
+                                        "<td>" + data[$i].equipamento_descricao + " </td> " +
+                                        "<td class='text-justify'>"+
+                                            "<button data-toggle='tooltip' title='Realizado' class='btn btn-icon waves-effect waves-light btn-success m-b-2 realizar'><i class='fa fa-thumbs-o-up'></i></button> "+
+                                            "<button data-toggle='tooltip' title='Cancelado' class='btn btn-icon waves-effect waves-light btn-danger m-b-2 cancelar'><i class='fa fa-remove'></i></button></td>"+
+                                        "</tr> ";     
+
+                        }
+                        // adicionar o código nos dois botões
+                        $("tbody").html(html);
+                        $(".realizar").bind("click", Realizar);
+                        $(".cancelar").bind("click", Cancelar);
                     }
-                    // adicionar o código nos dois botões
-                    $(".realizar").bind("click", Realizar);
-                    $(".cancelar").bind("click", Cancelar);
-                    $("tbody").html(html);
+                });
+            }
+
+            // evento do click do botão realizar
+            function Realizar(){
+                // pega a tr que foi clicada (linha)
+                var par = $(this).closest('tr');    
+                // pega o id da linha clicada (utilizando data-)
+                var id = par.find('td[data-id]').data('id');
+                if(confirm("Deseja realmente realizar o chamado " + id + "?")){
+                    fechaChamado(id,'R'); // fecharChamado retorna o texto se deu certo ou não.
                 }
-            });
-        }
-        
-        // evento do click do botão realizar
-        function Realizar(){
-            // pega a tr que foi clicada (linha)
-			var par = $(this).closest('tr');    
-			// pega o id da linha clicada (utilizando data-)
-			var id = par.find('td[data-id]').data('id');
-            if(confirm("Deseja realmente realizar o chamado " + id + "?")){
-                alert(fecharChamado(id,'R')); // fecharChamado retorna o texto se deu certo ou não.
             }
-        }
-        
-        // evento do click do botão cancelar
-        function Cancelar(){
-            // pega a tr que foi clicada (linha)
-			var par = $(this).closest('tr');    
-			// pega o id da linha clicada (utilizando data-)
-			var id = par.find('td[data-id]').data('id');
-            if(confirm("Deseja realmente cancelar o chamado " + id + "?")){
-                alert(fecharChamado(id,'C')); // fecharChamado retorna o texto se deu certo ou não.
+
+            // evento do click do botão cancelar
+            function Cancelar(){
+                // pega a tr que foi clicada (linha)
+                var par = $(this).closest('tr');    
+                // pega o id da linha clicada (utilizando data-)
+                var id = par.find('td[data-id]').data('id');
+                if(confirm("Deseja realmente cancelar o chamado " + id + "?")){
+                    fechaChamado(id,'C'); // fecharChamado retorna o texto se deu certo ou não.
+                }
             }
-        }
+            
+            
+            function fechaChamado(id,tipo){
+                var dados = { id : id , tipo : tipo };
+                $.ajax({
+                        url: "../backEnd/fechaChamado.php", method: "POST", data: dados, success : function(data) {
+                            alert(data);
+                            carregaLista();
+                        }
+                });            
+            }
+        });
     </script>
 </html>
     
