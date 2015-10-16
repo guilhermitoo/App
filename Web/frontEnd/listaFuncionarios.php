@@ -1,7 +1,7 @@
 <html>
     <link href="assets/css/moltran.min.css" rel="stylesheet" type="text/css">    
 <body>
-<?php include_once 'header.html'; ?>
+<?php include_once 'header.phtml'; ?>
 <div class="row">
 </div>
 <div class="row">

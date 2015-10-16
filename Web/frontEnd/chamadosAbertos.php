@@ -2,7 +2,7 @@
     <meta charset="utf-8">
     <link href="assets/css/moltran.min.css" rel="stylesheet" type="text/css">    
 <body>
-    <?php include_once 'header.html'; ?>    
+    <?php include_once 'header.phtml'; ?>    
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-default">

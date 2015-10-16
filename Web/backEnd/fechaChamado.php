@@ -31,9 +31,9 @@ if(isset($_POST)){
             exit;
         }
         // inicia a sessão
-//        session_start();
+        session_start();
         // pega o usuário logado
-        $funcionario_id = 1; //$_SESSION['funcionario_id'];
+        $funcionario_id = $_SESSION["id"];                        
         // pega a data atual (no mysql, a data deve ser inserida em ano-mes-dia
         $data = date('y-m-d');
         // agora faz o update no banco para modificar o status do chamado, 

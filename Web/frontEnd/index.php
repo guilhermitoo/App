@@ -1,7 +1,4 @@
-<?php 
-    // verifica se o usuário está logado, se não, redireciona para a tela de login
 
-?>
 <!DOCTYPE html>
 <html>
 <!-- Mirrored from moltran.coderthemes.com/dark/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 28 Sep 2015 21:15:11 GMT -->
@@ -19,7 +16,7 @@
 <body class="fixed-left">
 
 <?php
-    include_once 'header.html';
+    include_once 'header.phtml';
     include_once 'footer.html';
 ?>
 

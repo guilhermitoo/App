@@ -1,3 +1,21 @@
+<?php 
+    // verifica se o usuário está logado, se não, redireciona para a tela de login
+	include_once "../backEnd/valida_usuario.php";
+
+    if ( isset($_POST) && ( isset($_POST['email']) && isset($_POST['senha'])) ) {
+        $email = $_POST['email'];
+        $senha = $_POST['senha'];
+        
+        if ( ! validaLogin($email,$senha) ) {
+            header("location: login.html");
+        }
+    }
+    else {
+        if ( ! Logado() ){
+            header("location: login.html");
+        }
+    }
+?>
 <html>
 <head>
     <meta charset="utf-8">
@@ -10,18 +28,20 @@
                 <div class="text-center"><a href="index.php" class="logo"><img src="assets/images/logo-appriori.png" class="img-responsive" /></a></div>
             </div>
             <div class="navbar navbar-default" role="navigation">
-                <div class="container">
-                    <div class="">
-                    
-                        <form class="navbar-form pull-left" role="search">
-                            <button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
-                        </form>
-                        <ul class="nav navbar-nav navbar-right pull-right">                           
-                            <li class="">
-                                <a href="pags/login.html"><i class="md md-settings-power"></i> Sair</a>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="container">                                            
+                    <ul class="nav navbar-nav navbar-right pull-right">                           
+                        <li class="hidden-xs">
+                            <div class="col-md-12">                                    
+                                <label class="text-right"><?php echo "Nome:  " . $_SESSION["nome"] . "  "; ?></label>                                
+                            </div>
+                        </li>
+
+                        <li class="hidden-xs">                                    
+                            <form class="" action="../backEnd/logout.php">
+                                <button class="btn btn-danger" type="submit"><i class="md md-settings-power"></i> Sair</button>
+                            </form>  
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
