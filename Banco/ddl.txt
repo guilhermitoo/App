@@ -13,8 +13,10 @@ create table funcionarios
 	rg varchar(12) not null unique,
 	periodo char(1) not null,
 	email varchar(50) not null unique,
-	senha varchar(50) not null	
+	senha varchar(50) not null,
+	CONSTRAINT chk_periodo CHECK( periodo in ('M','T','N'))
 );
+
 
 create table locais
 (
@@ -51,3 +53,16 @@ create table chamados
 CREATE USER 'user'@'localhost' IDENTIFIED BY PASSWORD '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257'; 
 GRANT USAGE ON *.* TO 'user'@'localhost' IDENTIFIED BY PASSWORD '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257'; 
 GRANT ALL PRIVILEGES ON `appriori`.* TO 'user'@'localhost';
+
+cria trigger de cadastro de funcionário
+
+CREATE TRIGGER `tg_senha` BEFORE INSERT ON `funcionarios`
+ FOR EACH ROW begin
+declare senha varchar(32);
+set senha = md5(new.senha);
+set new.senha = senha;
+end
+
+-- inserindo um funcionário para acesso do sistema
+
+INSERT INTO 'appriori'.'funcionarios' ( 'nome', 'rg', 'email', 'senha', 'periodo') VALUES ( 'Administrador', '1', 'admin@admin', 'admin', 'T');

@@ -49,6 +49,9 @@ function validaLogin($email,$senha){
     // conexão postgreSQL
     require_once 'db.php';
 
+    // codifica a senha
+    $senha = md5($senha);
+    
     // Aqui veificamos se o usuario e senha informados na função existem e estão corretos
     $query = $database->select('funcionarios',['id','nome','email','senha'],['AND' => ['email'=>utf8_encode($email),'senha'=>utf8_encode($senha)]]);			
     $qregistro = sizeof($query);
