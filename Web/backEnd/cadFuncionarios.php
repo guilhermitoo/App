@@ -24,10 +24,10 @@ try{
             $email = $_POST['email'];
         }
         if (isset($_POST['senha1'])){
-            $senha1 = md5($_POST['senha1']);
+            $senha1 = $_POST['senha1'];
         }                    
         if (isset($_POST['senha2'])){
-            $senha2 = md5($_POST['senha2']);
+            $senha2 = $_POST['senha2'];
         }                    
         
         // se algum dos dados não foram informados, não deixa cadastrar e retorna mensagem
