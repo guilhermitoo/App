@@ -18,7 +18,7 @@ try{
             $email = $_POST['email'];
         }
         if (isset($_POST['senha'])){
-            $senha = md5($_POST['senha']);
+            $senha = $_POST['senha'];
         }                    
         
         // se algum dos dados não foram informados, não deixa cadastrar e retorna mensagem

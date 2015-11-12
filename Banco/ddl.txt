@@ -54,13 +54,22 @@ CREATE USER 'user'@'localhost' IDENTIFIED BY PASSWORD '*23AE809DDACAF96AF0FD78ED
 GRANT USAGE ON *.* TO 'user'@'localhost' IDENTIFIED BY PASSWORD '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257'; 
 GRANT ALL PRIVILEGES ON `appriori`.* TO 'user'@'localhost';
 
-cria trigger de cadastro de funcionário
+-- cria trigger de criptografia de funcionário
 
 CREATE TRIGGER `tg_senha` BEFORE INSERT ON `funcionarios`
  FOR EACH ROW begin
 declare senha varchar(32);
 set senha = md5(new.senha);
 set new.senha = senha;
+end
+
+-- cria trigger de criptografia de usuário
+
+CREATE TRIGGER `tg_senha_usuario` BEFORE INSERT ON `usuarios` 
+FOR EACH ROW begin 
+declare senha varchar(32); 
+set senha = md5(new.senha); 
+set new.senha = senha; 
 end
 
 -- inserindo um funcionário para acesso do sistema

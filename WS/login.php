@@ -1,14 +1,14 @@
 <?php
 
 if(isset($_GET)){
-    if (isset($_GET['email'])){
-        $email = $_GET['email'];
+    if (isset($_POST['email'])){
+        $email = $_POST['email'];
     }
     else{
         $email = '';
     }   
-    if (isset($_GET['senha'])){
-        $senha = $_GET['senha'];
+    if (isset($_POST['senha'])){
+        $senha = $_POST['senha'];
     }
     else{
         $senha = '';
