@@ -1,10 +1,10 @@
 <?php
  
-require 'vendor/autoload.php';
-require 'db.php';
+require '\vendor\autoload.php';
  
-$app = new Slim\App();
+$app = new \Slim\Slim();
  
+$app->get('/',function () { echo "Hello, WORLD"; });
 $app->get('/locais', 'getLocais');
 $app->get('/locais/:id', 'getLocal');
 $app->get('/equipamentos/:local_id','getEquipamentos');
@@ -18,6 +18,8 @@ $app->get('/chamados','getChamados');
 $app->get('/chamados/:id','getChamado');
 
 $app->run();
+
+require 'db.php';
 
 function getLocais(){
     try{
@@ -112,7 +114,7 @@ function cadChamado($desc,$equip_id,$usuario_id){
 
 function getChamados(){
     try{
-        $query = $database->select=('chamados'['id','descricao','data_inicio','data_fim','status','usuario_id','funcionario_id','equipamento_id',],['ORDER'=>'data_inicio']);
+        $query = $database->select('chamados',['id','descricao','data_inicio','data_fim','status','usuario_id','funcionario_id','equipamento_id'],['ORDER'=>'data_inicio']);
         echo json_encode($query);
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
@@ -121,7 +123,7 @@ function getChamados(){
 
 function getChamado($id){
     try{
-        $query = $database->select=('chamados'['id','descricao','data_inicio','data_fim','status','usuario_id','funcionario_id','equipamento_id',],['id'=>$id]);
+        $query = $database->select('chamados',['id','descricao','data_inicio','data_fim','status','usuario_id','funcionario_id','equipamento_id'],['id'=>$id]);
         echo json_encode($query);
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
