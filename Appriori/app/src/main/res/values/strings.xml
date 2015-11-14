@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Appriori</string>
+
+
+    <string name="action_settings">Settings</string>
+    <string name="login">Login</string>
+    <string name="senha">Senha</string>
+    <string name="entrar">Entrar</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="esqueci">Esqueci minha senha</string>
+    <string name="title_activity_cadastrar">CadastrarActivity</string>
+    <string name="nome">Nome</string>
+    <string name="email">E-mail</string>
+    <string name="salvar">Salvar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="title_activity_esqueci">EsqueciActivity</string>
+    <string name="enviar">Enviar</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="local">Local</string>
+    <string name="chamado">Chamado</string>
+    <string name="acompanhar">Acompanhar</string>
+    <string name="title_activity_chamado">ChamadoActivity</string>
+    <string name="title_activity_acompanhar">AcompanharActivity</string>
+    <string name="equipamento">Equipamento</string>
+    <string name="descricao">Descrição</string>
+    <string name="titulochamado">Chamado</string>
+    <string name="acompanhamento">Acompanhamento</string>
+    <string name="dataabertura">Data Início</string>
+    <string name="dataconclucao">Data Fim</string>
+    <string name="situacao">Situação</string>
+</resources>
