@@ -1,37 +1,39 @@
 <?php
- 
+
 require '\vendor\autoload.php';
  
 $app = new \Slim\Slim();
- 
-$app->get('/',function () { echo "Hello, WORLD"; });
-$app->get('/locais', 'getLocais');
-$app->get('/locais/:id', 'getLocal');
+
+$app->response()->header('Content-Type', 'application/json;charset=utf-8');
+$app->get('/',function () { echo "Olá, este serviço faz parte do aplicativo Appriori!"; });
+
+$app->get('/locais','getLocais');  
+$app->get('/local/:id', 'getLocal');
 $app->get('/equipamentos/:local_id','getEquipamentos');
-$app->get('/equipamentos/:id', 'getEquipamento');
-$app->get('/usuarios/','getUsuarios');
-$app->get('/usuarios/:id','getUsuario');
-$app->post('/usuarios/:nome/:email/:senha','cadUsuario');
-$app->put('/usuarios/:nome/:email/:senha','updateUsuario'); 
-$app->post('/chamados/:desc/:equip_id/:usuario_id','cadChamado');
+$app->get('/equipamento/:id', 'getEquipamento');
 $app->get('/chamados','getChamados');
-$app->get('/chamados/:id','getChamado');
+$app->get('/chamado/:id','getChamado');
+$app->get('/usuarios/','getUsuarios');
+$app->get('/usuario/:id','getUsuario');
+$app->put('/upd_usuario/','updateUsuario'); 
+$app->post('/cad_usuario/','cadUsuario');
+$app->post('/cad_chamado/','cadChamado');
 
 $app->run();
 
-require 'db.php';
-
 function getLocais(){
     try{
+        require 'db.php';
         $query = $database->select('locais',['id','nome'],['ORDER'=>'nome']);
         echo json_encode($query);
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
-    }    
+    }
 }
 
 function getLocal($id){
     try{
+        require 'db.php';
         $query = $database->select('locais',['id','nome'],['id'=>$id]);
         echo json_encode($query);
     }catch(PDOException $e){
@@ -39,9 +41,10 @@ function getLocal($id){
     }
 }
 
-function getEquipamentos(){
+function getEquipamentos($local_id){
     try{
-        $query = $database->select('equipamentos',['id','descricao','local_id'],['ORDER'=>'descricao']);
+        require 'db.php';
+        $query = $database->select('equipamentos',['id','descricao','local_id'],['local_id'=>$local_id]);
         echo json_encode($query);
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
@@ -50,6 +53,7 @@ function getEquipamentos(){
 
 function getEquipamento($id){
     try{
+        require 'db.php';
         $query = $database->select('equipamentos',['id','descricao','local_id'],['id'=>$id]);
         echo json_encode($query);
     }catch(PDOException $e){
@@ -59,6 +63,7 @@ function getEquipamento($id){
 
 function getUsuarios(){
     try{
+        require 'db.php';
         $query = $database->select('usuarios',['id','nome','email','senha'],['ORDER'=>'nome']);
         echo json_encode($query);
     }catch(PDOException $e){
@@ -68,6 +73,7 @@ function getUsuarios(){
 
 function getUsuario($id){
     try{
+        require 'db.php';
         $query = $database->select('usuarios',['id','nome','email','senha'],['id'=>$id]);
         echo json_encode($query);
     }catch(PDOException $e){
@@ -75,38 +81,50 @@ function getUsuario($id){
     }       
 }
 
-function cadUsuario($nome,$email,$senha){
+function cadUsuario(){
     try{
-        $data = date('y-m-d');
-        $qtd = $database->insert('usuarios',
-                                 ['nome'=>$nome,
-                                  'email'=>$email,
-                                  'senha'=>$senha]);
-        echo '{"qtd":'+$qtd+'}';
+        $request = \Slim\Slim::getInstance()->request();
+        $u = json_decode($request->getBody());  
+        require 'db.php';
+        $id = $database->insert('usuarios',
+                                 ['nome'=>$u->nome,
+                                  'email'=>$u->email,
+                                  'senha'=>$u->senha]);
+        echo '{"id":'+$id+'}';
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }       
 }
 
-function updateUsuario($nome,$email,$senha){
+function updateUsuario(){
     try{
-        $qtd = $database->update('usuarios',['nome'=>$nome,'email'=>$email,'senha'=>md5($senha)],['email'=>$email]);
-        echo '{"qtd":'+$qtd+'}';
+        $request = \Slim\Slim::getInstance()->request();
+        $u = json_decode($request->getBody());  
+        require 'db.php';
+        $id = $database->update('usuarios',
+                                 ['nome'=>$u->nome,
+                                  'email'=>$u->email,
+                                  'senha'=>$u->senha],
+                                 ['email'=>$u->email]);
+        echo '{"":'+$id+'}';
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }       
 }
 
-function cadChamado($desc,$equip_id,$usuario_id){
-    try{
+function cadChamado(){
+    try{        
+        $request = \Slim\Slim::getInstance()->request();
+        $chamado = json_decode($request->getBody());        
+        require 'db.php';
         $data = date('y-m-d');
-        $qtd = $database->insert('chamados',
-                                 ['descricao'=>$descricao,
-                                  'data_inicio'=>$data,
+        $id = $database->insert('chamados',
+                                 ['descricao'=>$chamado->descricao,
+                                  'data_inicio'=>$chamado->data,
                                   'status'=>1,
-                                  'usuario_id'=>$usuario_id,
-                                  'equipamento_id'=>$equip_id]);
-        echo '{"qtd":'+$qtd+'}';
+                                  'usuario_id'=>$chamado->usuario_id,
+                                  'equipamento_id'=>$chamado->equip_id]);
+        echo '{"id":'+$id+'}';
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }       
@@ -114,6 +132,7 @@ function cadChamado($desc,$equip_id,$usuario_id){
 
 function getChamados(){
     try{
+        require 'db.php';
         $query = $database->select('chamados',['id','descricao','data_inicio','data_fim','status','usuario_id','funcionario_id','equipamento_id'],['ORDER'=>'data_inicio']);
         echo json_encode($query);
     }catch(PDOException $e){
@@ -123,6 +142,7 @@ function getChamados(){
 
 function getChamado($id){
     try{
+        require 'db.php';
         $query = $database->select('chamados',['id','descricao','data_inicio','data_fim','status','usuario_id','funcionario_id','equipamento_id'],['id'=>$id]);
         echo json_encode($query);
     }catch(PDOException $e){
@@ -130,4 +150,5 @@ function getChamado($id){
     }
 }
  
+
 ?>
