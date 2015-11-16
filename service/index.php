@@ -9,7 +9,8 @@ $app->get('/',function () { echo "Olá, este serviço faz parte do aplicativo Ap
 
 $app->get('/locais','getLocais');  
 $app->get('/local/:id', 'getLocal');
-$app->get('/equipamentos/:local_id','getEquipamentos');
+$app->get('/equipamentos_local/:local_id','getEquipamentosLocal');
+$app->get('/equipamentos/','getEquipamentos');
 $app->get('/equipamento/:id', 'getEquipamento');
 $app->get('/chamados','getChamados');
 $app->get('/chamado/:id','getChamado');
@@ -41,10 +42,20 @@ function getLocal($id){
     }
 }
 
-function getEquipamentos($local_id){
+function getEquipamentosLocal($local_id){
     try{
         require 'db.php';
         $query = $database->select('equipamentos',['id','descricao','local_id'],['local_id'=>$local_id]);
+        echo json_encode($query);
+    }catch(PDOException $e){
+        echo '{"error":{"text":'. $e->getMessage() .'}}';
+    }   
+}
+
+function getEquipamentos(){
+    try{
+        require 'db.php';
+        $query = $database->select('equipamentos',['id','descricao','local_id']);
         echo json_encode($query);
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
