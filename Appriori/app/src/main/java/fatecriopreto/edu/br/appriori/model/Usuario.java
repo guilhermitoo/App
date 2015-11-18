@@ -1,5 +1,7 @@
 package fatecriopreto.edu.br.appriori.model;
 
+import fatecriopreto.edu.br.appriori.util.General;
+
 /**
  * Created by reinaldo on 05/11/2015.
  */
@@ -51,7 +53,10 @@ public class Usuario {
     }
 
     public void setSenha(String senha) {
-        this.senha = senha;
+        // declara classe util.general
+        General utilGeneral = new General();
+        // criptografa a senha
+        this.senha = utilGeneral.md5(senha);
     }
 
 

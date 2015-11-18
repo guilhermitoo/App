@@ -72,6 +72,15 @@ set senha = md5(new.senha);
 set new.senha = senha; 
 end
 
+CREATE TRIGGER `tg_altera_senha` BEFORE UPDATE ON 
+`usuarios` FOR EACH ROW begin 
+declare senha varchar(32); 
+	if (new.senha <> old.senha) then 
+		set senha = md5(new.senha); 
+		set new.senha = senha; 
+	end if; 
+end
+
 -- inserindo um funcionário para acesso do sistema
 
 INSERT INTO 'appriori'.'funcionarios' ( 'nome', 'rg', 'email', 'senha', 'periodo') VALUES ( 'Administrador', '1', 'admin@admin', 'admin', 'T');

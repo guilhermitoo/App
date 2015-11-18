@@ -18,12 +18,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import fatecriopreto.edu.br.appriori.data.WService;
 import fatecriopreto.edu.br.appriori.model.Usuario;
@@ -37,15 +33,10 @@ public class LoginActivity extends Activity {
     Button   btnCadastrarL;
     Button   btnEsqueciL;
 
-    List<Usuario> usuarios = new ArrayList<Usuario>;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        // carrega os usuarios do web service em um array
-        carregaUsuarios();
 
         //"conectar" os elementos do layout com os atributos
         edtLogin = (EditText) findViewById(R.id.edtLogin);
@@ -65,17 +56,15 @@ public class LoginActivity extends Activity {
 
                 //verifica se foi preenchido
                 if (login.equals("") || senha.equals("")) {
-                    Toast.makeText(LoginActivity.this, "Login e senha são obrigatórios", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Email e senha são obrigatórios", Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (login.length() <= 1 || senha.length() <= 1) {
-                    Toast.makeText(LoginActivity.this, "Usuario e senha devem ser maiores que 1 caractere", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Email e senha devem ser maiores que 1 caractere", Toast.LENGTH_LONG).show();
                     return;
                 }
 
-                //logar
-                Intent home = new  Intent (LoginActivity.this, HomeActivity.class);
-                startActivity(home);
+                login(login, senha);
             }
         });
 
@@ -99,52 +88,61 @@ public class LoginActivity extends Activity {
 
     }
 
-    private void login() {
-        // função que verifica se o usuário digitado está no array que foi carregado do webService
-    }
+    private void login(final String login, final String senha) {
+        try {
+            // função que verifica se o usuário digitado existe e a senha está correta
+            WService ws = new WService();
 
-    public void carregaUsuarios(){
-        WService ws = new WService();
+            // monta a url do webservice
+            final String link = ws.url + ws.login + login;
 
-        final String link = ws.url + ws.usuarios;
+            RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+            // faz a requisição para o webservice
+            JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, link, null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject jsonObject) {
+                            try {
+                                // se o json retornado nao contem o objeto email, então não retornou registro
+                                // assim exibe mensagem informando que o email nao foi cadastrado
+                                if (!jsonObject.has("email")) {
+                                    Toast.makeText(LoginActivity.this, "Email não cadastrado!", Toast.LENGTH_LONG).show();
+                                    edtLogin.requestFocus();
+                                    return;
+                                }
+                                // instancia um usuario
+                                Usuario u = new Usuario();
+                                // passa os dados do usuario
+                                u.setEmail(login);
+                                u.setSenha(senha);
+                                //valida se a senha está correta
+                                if (!jsonObject.getString("senha").equalsIgnoreCase(u.getSenha())) {
+                                    // se a senha está incorreta
+                                    Toast.makeText(LoginActivity.this, "Senha incorreta!", Toast.LENGTH_LONG).show();
+                                    edtSenhaL.requestFocus();
+                                    return;
+                                }
 
-        JsonObjectRequest getRequest;
-        getRequest = new JsonObjectRequest( Request.Method.GET, link, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject jsonObject){
-                        try{
-                            JSONArray uLists = new JSONArray(jsonObject);
-                            JSONObject uList = uLists.getJSONObject(0);
-                            JSONArray uListArray = uList.getJSONArray("usuarios");
-                            JSONObject usuario;
+                                Log.d("USUARIOS", u.toString());
 
-                            for (int i = 0; i < uListArray.length(); i++) {
-                                usuario = new JSONObject(uListArray.getString(i));
-
-                                Usuario objUsuario = new Usuario();
-                                objUsuario.setId(usuario.getInt("id"));
-                                objUsuario.setNome(usuario.getString("nome"));
-                                objUsuario.setEmail(usuario.getString("email"));
-                                objUsuario.setSenha(usuario.getString("senha"));
-
-                                usuarios.add(objUsuario);
-
-                                Log.d("USUARIOS",usuarios.toString());
+                                //logar
+                                Intent home = new Intent(LoginActivity.this, HomeActivity.class);
+                                startActivity(home);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        }catch(JSONException e){
-                            e.printStackTrace();
                         }
-                    }
-                }, new Response.ErrorListener(){
-            @Override
-            public void onErrorResponse(VolleyError volleyError){
-                Log.d("Error.Response", volleyError.getMessage());
-            }
-        });
-        queue.add(getRequest);
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+                    Log.d("Error.Response", volleyError.getMessage());
+                }
+            });
+            queue.add(getRequest);
+        }catch(Exception e){
+            Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override

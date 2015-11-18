@@ -16,7 +16,7 @@ $app->get('/chamados/','getChamados');
 $app->get('/chamados/:id','getChamado');
 $app->get('/usuarios/','getUsuarios');
 $app->get('/usuarios/:id','getUsuario');
-$app->get('/usuario_login/:email/:senha','getLogin');
+$app->get('/usuario_login/:email','getLogin');
 $app->put('/upd_usuario/','updateUsuario'); 
 $app->post('/cad_usuario/','cadUsuario');
 $app->post('/cad_chamado/','cadChamado');
@@ -37,7 +37,12 @@ function getLocal($id){
     try{
         require 'db.php';
         $query = $database->select('locais',['id','nome'],['id'=>$id]);
-        echo json_encode($query);
+        if (sizeof($query)>0){
+            $query = $query["0"];
+            echo json_encode($query);
+        }else{
+            echo '{}';
+        }
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
@@ -67,7 +72,12 @@ function getEquipamento($id){
     try{
         require 'db.php';
         $query = $database->select('equipamentos',['id','descricao','local_id'],['id'=>$id]);
-        echo json_encode($query);
+        if (sizeof($query)>0){
+            $query = $query["0"];
+            echo json_encode($query);
+        }else{
+            echo '{}';
+        }
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
@@ -87,17 +97,27 @@ function getUsuario($id){
     try{
         require 'db.php';
         $query = $database->select('usuarios',['id','nome','email','senha'],['id'=>$id]);
-        echo json_encode($query);
+        if (sizeof($query)>0){
+            $query = $query["0"];
+            echo json_encode($query);
+        }else{
+            echo '{}';
+        }
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }       
 }
 
-function getLogin($email,$senha){
+function getLogin($email){
     try{
         require 'db.php';
-        $query = $database->select('usuarios',['id','nome','email','senha'],['email'=>$email,'senha'=>$senha]);
-        echo json_encode($query);
+        $query = $database->select('usuarios',['id','nome','email','senha'],['email'=>$email]);
+        if (sizeof($query)>0){
+            $query = $query["0"];        
+            echo json_encode($query);
+        }else{
+            echo '{}';
+        }
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }       
@@ -166,7 +186,12 @@ function getChamado($id){
     try{
         require 'db.php';
         $query = $database->select('chamados',['id','descricao','data_inicio','data_fim','status','usuario_id','funcionario_id','equipamento_id'],['id'=>$id]);
-        echo json_encode($query);
+        if (sizeof($query)>0){
+            $query = $query["0"];
+            echo json_encode($query);
+        }else{
+            echo '{}';
+        }
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
