@@ -16,6 +16,7 @@ $app->get('/chamados/','getChamados');
 $app->get('/chamados/:id','getChamado');
 $app->get('/usuarios/','getUsuarios');
 $app->get('/usuarios/:id','getUsuario');
+$app->get('/usuario_login/:email/:senha','getLogin');
 $app->put('/upd_usuario/','updateUsuario'); 
 $app->post('/cad_usuario/','cadUsuario');
 $app->post('/cad_chamado/','cadChamado');
@@ -86,6 +87,16 @@ function getUsuario($id){
     try{
         require 'db.php';
         $query = $database->select('usuarios',['id','nome','email','senha'],['id'=>$id]);
+        echo json_encode($query);
+    }catch(PDOException $e){
+        echo '{"error":{"text":'. $e->getMessage() .'}}';
+    }       
+}
+
+function getLogin($email,$senha){
+    try{
+        require 'db.php';
+        $query = $database->select('usuarios',['id','nome','email','senha'],['email'=>$email,'senha'=>$senha]);
         echo json_encode($query);
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
