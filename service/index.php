@@ -125,13 +125,13 @@ function getLogin($email){
 
 function cadUsuario(){
     try{
-        $request = \Slim\Slim::getInstance()->request();
-        $u = json_decode($request->getBody());  
+        $req = $app->request();
+//        $u = json_decode($request->getBody());  
         require 'db.php';
         $id = $database->insert('usuarios',
-                                 ['nome'=>$u->nome,
-                                  'email'=>$u->email,
-                                  'senha'=>$u->senha]);
+                                 ['nome'=>$req->params('nome'),
+                                  'email'=>$req->params('email'),
+                                  'senha'=>$req->params('senha')]);
         echo '{"id":'+$id+'}';
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';

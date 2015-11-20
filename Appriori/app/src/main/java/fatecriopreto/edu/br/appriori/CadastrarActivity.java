@@ -8,9 +8,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import fatecriopreto.edu.br.appriori.bean.Login;
 import fatecriopreto.edu.br.appriori.data.DBAdapter;
+import fatecriopreto.edu.br.appriori.data.WService;
+import fatecriopreto.edu.br.appriori.model.Usuario;
 
 public class CadastrarActivity extends Activity {
 
@@ -18,6 +32,7 @@ public class CadastrarActivity extends Activity {
     EditText edtNome;
     EditText edtEmail;
     EditText edtSenha;
+    EditText edtSenha2;
     Button   btnSalvar;
     Button   btnCancelar;
 
@@ -33,6 +48,7 @@ public class CadastrarActivity extends Activity {
         edtNome = (EditText) findViewById(R.id.edtNome);
         edtEmail = (EditText) findViewById(R.id.edtEmail);
         edtSenha = (EditText) findViewById(R.id.edtSenha);
+        edtSenha2 = (EditText) findViewById(R.id.edtSenha2);
         btnSalvar = (Button)  findViewById(R.id.btnSalvar);
         btnCancelar = (Button) findViewById(R.id.btnCancelar);
 
@@ -40,7 +56,7 @@ public class CadastrarActivity extends Activity {
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+/*
                 dbAdapter = new DBAdapter(CadastrarActivity.this);
                 dbAdapter.open();
 
@@ -53,20 +69,93 @@ public class CadastrarActivity extends Activity {
                 dbAdapter.close();
                 Intent entrar = new Intent (CadastrarActivity.this, HomeActivity.class);
                 startActivity(entrar);
+*/
+                String nome,email,senha, senha2;
+                nome = edtNome.getText().toString();
+                email = edtEmail.getText().toString();
+                senha = edtSenha.getText().toString();
+                senha2 = edtSenha2.getText().toString();
 
+                // se algum dos campos não for informado, exibe uma mensagem de aviso
+                if (nome.equals("")||email.equals("")||senha.equals("")||senha2.equals("")){
+                    Toast.makeText(CadastrarActivity.this, "Preencha todos os campos.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                // verifica se as senhas coincidem
+                if (!senha.equals(senha2)){
+                    Toast.makeText(CadastrarActivity.this, "As senhas não coincidem.", Toast.LENGTH_LONG).show();
+                    edtSenha.requestFocus();
+                    return;
+                }
+
+                // instancia o usuário
+                Usuario u = new Usuario();
+                // atribui os valores para a instancia de usuario
+                u.setNome(nome.toString());
+                u.setEmail(email.toString());
+                u.setSenha(senha.toString());
+                // e então chama a função para cadastrar
+                cadastrar(u);
             }
         });
 
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent cancelar = new Intent (CadastrarActivity.this, LoginActivity.class);
                 startActivity(cancelar);
-
             }
         });
 
+    }
+
+    private void cadastrar( final Usuario user ){
+        try{
+            // função utilizada para cadastrar
+
+            // após validar os dados, envia para o webservice utilizando a função de cadastro
+            // função que verifica se o usuário digitado existe e a senha está correta
+            WService ws = new WService();
+
+            // monta a url do webservice
+            final String link = ws.url + ws.cadastroUsuario;
+
+            RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+            // faz a requisição para o webservice
+            StringRequest sr = new StringRequest(Request.Method.POST,link, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    //mPostCommentResponse.requestCompleted();
+                    Toast.makeText(CadastrarActivity.this, "Cadastrado com sucesso", Toast.LENGTH_LONG).show();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(CadastrarActivity.this, "Erro ao cadastrar: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }){
+                @Override
+                protected Map<String,String> getParams(){
+                    Map<String,String> params = new HashMap<String, String>();
+                    params.put("nome",user.getNome());
+                    params.put("email",user.getEmail());
+                    params.put("senha",user.getSenha());
+
+                    return params;
+                }
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String,String> params = new HashMap<String, String>();
+                    params.put("Content-Type","application/x-www-form-urlencoded");
+                    return params;
+                }
+            };
+            queue.add(sr);
+        }catch(Exception e){
+            Toast.makeText(CadastrarActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
