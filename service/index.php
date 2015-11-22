@@ -125,7 +125,10 @@ function getLogin($email){
 
 function cadUsuario(){
     try{
-        $req = $app->request();
+        $app = \Slim\Slim::getInstance();
+        $request = $app->request();
+        $body = $request->getBody();
+        $event = json_decode($body);
 //        $u = json_decode($request->getBody());  
         require 'db.php';
         $id = $database->insert('usuarios',

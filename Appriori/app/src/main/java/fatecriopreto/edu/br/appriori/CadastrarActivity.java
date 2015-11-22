@@ -15,8 +15,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -117,42 +120,33 @@ public class CadastrarActivity extends Activity {
             // função que verifica se o usuário digitado existe e a senha está correta
             WService ws = new WService();
 
+            JSONObject js = new JSONObject();
+
+            js.put("nome",user.getNome());
+            js.put("email",user.getEmail());
+            js.put("senha",user.getSenha());
+
             // monta a url do webservice
             final String link = ws.url + ws.cadastroUsuario;
 
             RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
             // faz a requisição para o webservice
-            StringRequest sr = new StringRequest(Request.Method.POST,link, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
+            JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.POST, link, js,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject jsonObject) {
+
                     //mPostCommentResponse.requestCompleted();
                     Toast.makeText(CadastrarActivity.this, "Cadastrado com sucesso", Toast.LENGTH_LONG).show();
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(CadastrarActivity.this, "Erro ao cadastrar: " + error.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }){
-                @Override
-                protected Map<String,String> getParams(){
-                    Map<String,String> params = new HashMap<String, String>();
-                    params.put("nome",user.getNome());
-                    params.put("email",user.getEmail());
-                    params.put("senha",user.getSenha());
-
-                    return params;
-                }
-
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    Map<String,String> params = new HashMap<String, String>();
-                    params.put("Content-Type","application/x-www-form-urlencoded");
-                    return params;
-                }
-            };
-            queue.add(sr);
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(CadastrarActivity.this, "Erro ao cadastrar: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            queue.add(getRequest);
         }catch(Exception e){
             Toast.makeText(CadastrarActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
         }

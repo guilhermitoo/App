@@ -23,6 +23,7 @@ import org.json.JSONObject;
 
 import fatecriopreto.edu.br.appriori.data.WService;
 import fatecriopreto.edu.br.appriori.model.Usuario;
+import fatecriopreto.edu.br.appriori.util.CustomRequest;
 
 public class LoginActivity extends Activity {
 
@@ -96,52 +97,55 @@ public class LoginActivity extends Activity {
             // monta a url do webservice
             final String link = ws.url + ws.login + login;
 
-            RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+            //CustomRequest jsObjRequest = new CustomRequest(Method.POST, url, params, this.createRequestSuccessListener(), this.createRequestErrorListener());
+            //RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
             // faz a requisição para o webservice
-            JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, link, null,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject jsonObject) {
-                            try {
-                                // se o json retornado nao contem o objeto email, então não retornou registro
-                                // assim exibe mensagem informando que o email nao foi cadastrado
-                                if (!jsonObject.has("email")) {
-                                    Toast.makeText(LoginActivity.this, "Email não cadastrado!", Toast.LENGTH_LONG).show();
-                                    edtLogin.requestFocus();
-                                    return;
-                                }
-                                // instancia um usuario
-                                Usuario u = new Usuario();
-                                // passa os dados do usuario
-                                u.setEmail(login);
-                                u.setSenha(senha);
-                                //valida se a senha está correta
-                                if (!jsonObject.getString("senha").equalsIgnoreCase(u.getSenha())) {
-                                    // se a senha está incorreta
-                                    Toast.makeText(LoginActivity.this, "Senha incorreta!", Toast.LENGTH_LONG).show();
-                                    edtSenhaL.requestFocus();
-                                    return;
-                                }
-
-                                Log.d("USUARIOS", u.toString());
-
-                                //logar
-                                Intent home = new Intent(LoginActivity.this, HomeActivity.class);
-                                startActivity(home);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+            CustomRequest jsObjRequest = new CustomRequest(Request.Method.GET, link, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject jsonObject) {
+                        try {
+                            // se o json retornado nao contem o objeto email, então não retornou registro
+                            // assim exibe mensagem informando que o email nao foi cadastrado
+                            if (!jsonObject.has("email")) {
+                                Toast.makeText(LoginActivity.this, "Email não cadastrado!", Toast.LENGTH_LONG).show();
+                                edtLogin.requestFocus();
+                                return;
                             }
+                            // instancia um usuario
+                            Usuario u = new Usuario();
+                            // passa os dados do usuario
+                            u.setEmail(login);
+                            u.setSenha(senha);
+                            //valida se a senha está correta
+                            if (!jsonObject.getString("senha").equalsIgnoreCase(u.getSenha())) {
+                                // se a senha está incorreta
+                                Toast.makeText(LoginActivity.this, "Senha incorreta!", Toast.LENGTH_LONG).show();
+                                edtSenhaL.requestFocus();
+                                return;
+                            }
+
+                            Log.d("USUARIOS", u.toString());
+
+                            //logar
+                            Intent home = new Intent(LoginActivity.this, HomeActivity.class);
+                            startActivity(home);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError volleyError) {
-                    Log.d("Error.Response", volleyError.getMessage());
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.d("Error.Response", volleyError.getMessage());
                 }
             });
-            queue.add(getRequest);
-        }catch(Exception e){
-            Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+            requestQueue.add(jsObjRequest);
+        }catch(RuntimeException e){
+            Toast.makeText(LoginActivity.this, "" + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
