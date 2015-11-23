@@ -54,9 +54,16 @@ public class Usuario {
 
     public void setSenha(String senha) {
         // declara classe util.general
-        General utilGeneral = new General();
+        //General utilGeneral = new General();
         // criptografa a senha
-        this.senha = utilGeneral.md5(senha);
+        //this.senha = utilGeneral.md5(senha);
+        this.senha = senha;
+    }
+
+    public String getSenhaMD5()
+    {
+        General utilGeneral = new General();
+        return utilGeneral.md5(senha);
     }
 
 

@@ -15,7 +15,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
@@ -120,8 +119,8 @@ public class LoginActivity extends Activity {
                             // passa os dados do usuario
                             u.setEmail(login);
                             u.setSenha(senha);
-                            //valida se a senha está correta
-                            if (!jsonObject.getString("senha").equalsIgnoreCase(u.getSenha())) {
+                            // valida se a senha está correta, verificando a senha já encriptografada
+                            if (!jsonObject.getString("senha").equalsIgnoreCase(u.getSenhaMD5())) {
                                 // se a senha está incorreta
                                 Toast.makeText(LoginActivity.this, "Senha incorreta!", Toast.LENGTH_LONG).show();
                                 edtSenhaL.requestFocus();
@@ -170,4 +169,14 @@ public class LoginActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Intent intent = getIntent();
+
+        edtLogin.setText(intent.getStringExtra("email"));
+        edtSenhaL.setText(intent.getStringExtra("senha"));
+    }
+
 }

@@ -10,19 +10,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import fatecriopreto.edu.br.appriori.bean.Login;
 import fatecriopreto.edu.br.appriori.data.DBAdapter;
@@ -132,14 +128,43 @@ public class CadastrarActivity extends Activity {
             RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
             // faz a requisição para o webservice
-            JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.POST, link, js,
+            final JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.POST, link, js,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
-
-                    //mPostCommentResponse.requestCompleted();
-                    Toast.makeText(CadastrarActivity.this, "Cadastrado com sucesso", Toast.LENGTH_LONG).show();
-                }
+                        //mPostCommentResponse.requestCompleted();
+                        // verifica se o json retornado é o de erro
+                        if ( jsonObject.has("error") )
+                        {
+                            try
+                            {
+                                // se for, exibe a mensagem retornada
+                                JSONObject js = new JSONObject();
+                                js = jsonObject.getJSONObject("error");
+                                Toast.makeText(CadastrarActivity.this, "Erro ao cadastrar: " +
+                                        js.getString("text").toString(), Toast.LENGTH_LONG).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }else {
+                            try {
+                                // se o retorno do webservice foi 0, ele tentou inserir mas o email já estava cadastrado
+                                if ( jsonObject.getInt("id") == 0 ){
+                                    Toast.makeText(CadastrarActivity.this, "Email já cadastrado", Toast.LENGTH_LONG).show();
+                                    edtEmail.requestFocus();
+                                }else {
+                                    Toast.makeText(CadastrarActivity.this, "Cadastrado com sucesso", Toast.LENGTH_LONG).show();
+                                    // cria a intent da activity login
+                                    Intent voltar = new Intent (CadastrarActivity.this, LoginActivity.class);
+                                    voltar.putExtra("email", user.getEmail().toString());
+                                    voltar.putExtra("senha", user.getSenha().toString());
+                                    startActivity(voltar);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {

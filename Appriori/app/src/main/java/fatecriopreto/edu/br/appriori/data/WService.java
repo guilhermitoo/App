@@ -20,7 +20,7 @@ public class WService {
 
     public WService() {
         // LINK DO WEB SERVICE
-        url = "http://appriori.no-ip.info/app/service";
+        url = "http://192.168.23.205/app/service";
 
         // CAMINHOS WEB SERVICE
         locais = "/locais/";

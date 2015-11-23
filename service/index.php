@@ -132,10 +132,10 @@ function cadUsuario(){
 //        $u = json_decode($request->getBody());  
         require 'db.php';
         $id = $database->insert('usuarios',
-                                 ['nome'=>$req->params('nome'),
-                                  'email'=>$req->params('email'),
-                                  'senha'=>$req->params('senha')]);
-        echo '{"id":'+$id+'}';
+                                 ['nome'=>(string)$event->nome,
+                                  'email'=>(string)$event->email,
+                                  'senha'=>(string)$event->senha]);
+        echo '{"id":'.$id.'}';
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }       
