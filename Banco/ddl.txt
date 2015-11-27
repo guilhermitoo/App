@@ -63,6 +63,9 @@ set senha = md5(new.senha);
 set new.senha = senha;
 end
 
+CREATE TRIGGER `tg_altera_funcionario` BEFORE UPDATE ON `funcionarios` FOR EACH ROW begin declare senha varchar(32); if (new.senha <> old.senha) then set senha = md5(new.senha); set new.senha = senha; end if; end
+
+
 -- cria trigger de criptografia de usuário
 
 CREATE TRIGGER `tg_senha_usuario` BEFORE INSERT ON `usuarios` 
