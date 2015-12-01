@@ -2,29 +2,40 @@ package fatecriopreto.edu.br.appriori;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class HomeActivity extends Activity {
 
     //componentes que seram manipulados no layout
     Button btnChamadoH;
     Button btnAcompanharH;
+    TextView txtTitulo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        setTitle("Home");
-
         //conectar elementos
         btnChamadoH = (Button) findViewById(R.id.btnChamadoH);
         btnAcompanharH = (Button) findViewById(R.id.btnAcompanharH);
+        txtTitulo = (TextView) findViewById(R.id.txtTitulo);
+
+        // Declaração de um objeto sharedpreferences da instância de SharedPreferences
+        SharedPreferences sharedpreferences = getApplicationContext().getSharedPreferences("usuario", MODE_PRIVATE);
+
+        // Cria um objeto chamado editor da instância de Editor a partir do método edit do objeto sharedpreferences
+        String nomeUsuario = "Logado: " + sharedpreferences.getString("nome","");
+
+        //define os titulos
+        setTitle("Principal");
+        txtTitulo.setText(nomeUsuario);
 
         //evento botão chamado, traz activity para abrir um chamado
         btnChamadoH.setOnClickListener(new View.OnClickListener() {

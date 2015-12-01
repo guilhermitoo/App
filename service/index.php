@@ -27,7 +27,7 @@ function getLocais(){
     try{
         require 'db.php';
         $query = $database->select('locais',['id','nome'],['ORDER'=>'nome']);
-        echo json_encode($query);
+        echo '{"locais":' . json_encode($query) . '}';
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
@@ -52,7 +52,7 @@ function getEquipamentosLocal($local_id){
     try{
         require 'db.php';
         $query = $database->select('equipamentos',['id','descricao','local_id'],['local_id'=>$local_id]);
-        echo json_encode($query);
+        echo '{"equipamentos":' . json_encode($query) . '}';
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }   
@@ -62,7 +62,7 @@ function getEquipamentos(){
     try{
         require 'db.php';
         $query = $database->select('equipamentos',['id','descricao','local_id']);
-        echo json_encode($query);
+        echo '{"equipamentos":' . json_encode($query) . '}';
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }   
@@ -87,7 +87,7 @@ function getUsuarios(){
     try{
         require 'db.php';
         $query = $database->select('usuarios',['id','nome','email','senha'],['ORDER'=>'nome']);
-        echo json_encode($query);
+        echo '{"usuarios":' . json_encode($query) . '}';
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }       
@@ -179,7 +179,7 @@ function getChamados(){
     try{
         require 'db.php';
         $query = $database->select('chamados',['id','descricao','data_inicio','data_fim','status','usuario_id','funcionario_id','equipamento_id'],['ORDER'=>'data_inicio']);
-        echo json_encode($query);
+        echo '{"chamados":' . json_encode($query) . '}';
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }

@@ -30,4 +30,5 @@
     <string name="situacao">Situação</string>
     <string name="confirma_senha">Confirmar senha</string>
     <string name="cancelar2">Cancelar</string>
+    <string name="tituloCadastro">Cadastrar Usuário</string>
 </resources>

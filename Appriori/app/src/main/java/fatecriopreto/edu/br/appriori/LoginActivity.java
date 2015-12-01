@@ -2,6 +2,7 @@ package fatecriopreto.edu.br.appriori;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -98,9 +99,6 @@ public class LoginActivity extends Activity {
 
             RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
-            //CustomRequest jsObjRequest = new CustomRequest(Method.POST, url, params, this.createRequestSuccessListener(), this.createRequestErrorListener());
-            //RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-
             // faz a requisição para o webservice
             CustomRequest jsObjRequest = new CustomRequest(Request.Method.GET, link, null,
                 new Response.Listener<JSONObject>() {
@@ -119,6 +117,8 @@ public class LoginActivity extends Activity {
                             // passa os dados do usuario
                             u.setEmail(login);
                             u.setSenha(senha);
+                            u.setNome(jsonObject.getString("nome").toString());
+                            u.setId(jsonObject.getInt("id"));
                             // valida se a senha está correta, verificando a senha já encriptografada
                             if (!jsonObject.getString("senha").equalsIgnoreCase(u.getSenhaMD5())) {
                                 // se a senha está incorreta
@@ -130,6 +130,22 @@ public class LoginActivity extends Activity {
                             Log.d("USUARIOS", u.toString());
 
                             //logar
+
+                            // Declaração de um objeto sharedpreferences da instância de SharedPreferences
+                            SharedPreferences sharedpreferences = getApplicationContext().getSharedPreferences("usuario", MODE_PRIVATE);
+
+                            // Cria um objeto chamado editor da instância de Editor a partir do método edit do objeto sharedpreferences
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+
+                            // adiciona os dados do usuário logado no editor.
+                            editor.putInt("id", u.getId());
+                            editor.putString("nome", u.getNome());
+                            editor.putString("email", u.getEmail());
+                            editor.putString("senha", u.getSenha());
+
+                            // Salva o que foi feito
+                            editor.commit();
+
                             Intent home = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(home);
                         } catch (JSONException e) {

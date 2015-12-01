@@ -91,4 +91,12 @@
             </GridLayout>
         </LinearLayout>
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tituloCadastro"
+        android:id="@+id/txtTituloCadastrar"
+        android:textSize="40sp" />
+
 </RelativeLayout>
