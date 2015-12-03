@@ -101,7 +101,7 @@ public class ChamadoActivity extends Activity {
             });
             requestQueue.add(jsObjRequest);
         }catch(RuntimeException e){
-            Toast.makeText(ChamadoActivity.this, "" + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "" + e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
         spnLocalC.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -128,6 +128,27 @@ public class ChamadoActivity extends Activity {
             @Override
             public void onClick(View v) {
                 // executa a função para salvar o chamado no banco
+                // mas antes valida se os dados foram preenchidos
+                spnObj so = new spnObj();
+
+                so = (spnObj) spnLocalC.getSelectedItem();
+                if ( so.getId() == 0 ){
+                    Toast.makeText(getActivity(), "Selecione um local", Toast.LENGTH_LONG).show();
+                    spnLocalC.requestFocus();
+                    return;
+                }
+                so = (spnObj) spnEquipamentoC.getSelectedItem();
+                if ( so.getId() == 0 ){
+                    Toast.makeText(getActivity(), "Selecione o equipamento", Toast.LENGTH_LONG).show();
+                    spnEquipamentoC.requestFocus();
+                    return;
+                }
+                if ( edtDescricao.equals("") ){
+                    Toast.makeText(getActivity(), "Descreva o problema", Toast.LENGTH_LONG).show();
+                    edtDescricao.requestFocus();
+                    return;
+                }
+                // somente após validar é que executa a função
                 cadastrarChamado();
             }
         });
@@ -241,6 +262,10 @@ public class ChamadoActivity extends Activity {
                             List<spnObj> lista = new ArrayList<spnObj>();
                             try {
                                 JSONArray jsonArray = new JSONArray(jsonObject.optString("equipamentos"));
+                                spnObj so1 = new spnObj();
+                                so1.setId(0);
+                                so1.setNome("Selecione um Equipamento...");
+                                lista.add(so1);
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject jObject = jsonArray.getJSONObject(i);
 
