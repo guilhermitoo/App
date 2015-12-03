@@ -159,13 +159,15 @@ function updateUsuario(){
 
 function cadChamado(){
     try{        
-        $request = \Slim\Slim::getInstance()->request();
-        $chamado = json_decode($request->getBody());        
+        $app = \Slim\Slim::getInstance();
+        $request = $app->request();
+        $body = $request->getBody();        
+        $chamado = json_decode($body);        
         require 'db.php';
         $data = date('y-m-d');
         $id = $database->insert('chamados',
                                  ['descricao'=>$chamado->descricao,
-                                  'data_inicio'=>$chamado->data,
+                                  'data_inicio'=>$data,
                                   'status'=>1,
                                   'usuario_id'=>$chamado->usuario_id,
                                   'equipamento_id'=>$chamado->equip_id]);

@@ -45,6 +45,17 @@ public class Chamado {
         return status;
     }
 
+    public Integer getStatusInt() {
+        // função para retornar o valor numérico do status
+        Integer i = 0;
+        switch (status){
+            case PENDENTE: i = 1;
+            case REALIZADO: i = 2;
+            case CANCELADO: i = 3;
+        }
+        return i;
+    }
+
     public void setStatus(StatusChamado status) {
         this.status = status;
     }

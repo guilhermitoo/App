@@ -1,11 +1,17 @@
 package fatecriopreto.edu.br.appriori;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -14,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -21,8 +28,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import fatecriopreto.edu.br.appriori.data.WService;
+import fatecriopreto.edu.br.appriori.model.Chamado;
+import fatecriopreto.edu.br.appriori.model.Equipamento;
+import fatecriopreto.edu.br.appriori.model.Usuario;
 import fatecriopreto.edu.br.appriori.util.CustomRequest;
 
 public class ChamadoActivity extends Activity {
@@ -31,6 +43,8 @@ public class ChamadoActivity extends Activity {
     Spinner spnLocalC;
     Spinner spnEquipamentoC;
     EditText edtDescricao;
+    Button btnSalvar;
+    Button btnCancelar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +54,8 @@ public class ChamadoActivity extends Activity {
         spnLocalC = (Spinner) findViewById(R.id.spnLocalC);
         spnEquipamentoC = (Spinner) findViewById(R.id.spnEquipamentoC);
         edtDescricao = (EditText) findViewById(R.id.edtDescricao);
+        btnSalvar = (Button) findViewById(R.id.btnSalvar);
+        btnCancelar = (Button) findViewById(R.id.btnCancelar);
 
         // carregar os locais no combo de locais
         try {
@@ -56,18 +72,26 @@ public class ChamadoActivity extends Activity {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject jsonObject) {
-                            ArrayList<String> lista = new ArrayList<String>();
+                            List<spnObj> lista = new ArrayList<spnObj>();
                             try {
                                 JSONArray jsonArray = new JSONArray(jsonObject.optString("locais"));
+                                spnObj so = new spnObj();
+                                so.setId(0);
+                                so.setNome("Selecione um local...");
+                                lista.add(so);
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject jObject = jsonArray.getJSONObject(i);
 
-                                    lista.add(jObject.optString("nome"));
+                                    spnObj so1 = new spnObj(jObject.optInt("id"),jObject.optString("nome"));
+
+                                    lista.add(so1);
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            spnLocalC.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_gallery_item, lista));
+                            ArrayAdapter<spnObj> dataAdapter = new ArrayAdapter<spnObj>(getActivity(),android.R.layout.simple_spinner_item, lista);
+                            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spnLocalC.setAdapter(dataAdapter);
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -79,10 +103,205 @@ public class ChamadoActivity extends Activity {
         }catch(RuntimeException e){
             Toast.makeText(ChamadoActivity.this, "" + e.getMessage(), Toast.LENGTH_LONG).show();
         }
+
+        spnLocalC.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ListarEquipamentos();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        btnCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cancelar = new Intent(getActivity(), HomeActivity.class);
+                startActivity(cancelar);
+            }
+        });
+
+        btnSalvar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // executa a função para salvar o chamado no banco
+                cadastrarChamado();
+            }
+        });
     }
 
-    private void ListarLocais(){
+    private void cadastrarChamado(){
+        // função que cadastra o chamado utilizando o webservice
+        try {
+            // pega o objeto selecionado
+            spnObj objSelecionado = new spnObj();
+            objSelecionado = (spnObj) spnEquipamentoC.getSelectedItem();
+            //instancia o equipamento
+            Equipamento e = new Equipamento();
+            //atribui os dados do equipamento
+            e.setId(objSelecionado.getId());
+            // instancia o usuario
+            Usuario user = new Usuario();
+            // Declaração de um objeto sharedpreferences da instância de SharedPreferences
+            SharedPreferences sharedpreferences = getApplicationContext().getSharedPreferences("usuario", MODE_PRIVATE);
+            user.setId(sharedpreferences.getInt("id",0));
 
+            Date date = new Date();
+
+            // instancia um chamado
+            Chamado chamado = new Chamado();
+            // atribui os dados no chamado
+            chamado.setEquipamento(e);
+            chamado.setDescricao(edtDescricao.toString());
+            chamado.setUsuario(user);
+            // envia os dados para o web service
+            WService ws = new WService();
+            JSONObject js = new JSONObject();
+
+            js.put("descricao",chamado.getDescricao().toString());
+            js.put("usuario_id",chamado.getUsuario().getId());
+            js.put("equip_id",chamado.getEquipamento().getId());
+            final String link = ws.url + ws.cadastroUsuario;
+
+            RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+            // faz a requisição para o webservice
+            final JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.POST, link, js,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject jsonObject) {
+                            //mPostCommentResponse.requestCompleted();
+                            // verifica se o json retornado é o de erro
+                            if ( jsonObject.has("error") )
+                            {
+                                try
+                                {
+                                    // se for, exibe a mensagem retornada
+                                    JSONObject js = new JSONObject();
+                                    js = jsonObject.getJSONObject("error");
+                                    Toast.makeText(getActivity(), "Erro ao cadastrar: " + js.getString("text").toString(), Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }else {
+                                try {
+                                    // se o retorno do webservice foi 0, ele tentou inserir mas por algum motivo não foi inserido
+                                    if ( jsonObject.getInt("id") == 0 ){
+                                        Toast.makeText(getActivity(), "Erro ao registrar o chamado.", Toast.LENGTH_LONG).show();
+                                    }else {
+                                        Toast.makeText(getActivity(), "Cadastrado com sucesso", Toast.LENGTH_LONG).show();
+                                        // cria a intent da activity login
+                                        Intent voltarChamados = new Intent (getActivity(), AcompanharActivity.class);
+                                        startActivity(voltarChamados);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getActivity(), "Erro ao cadastrar: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+            queue.add(getRequest);
+
+        }catch(Exception e){
+            Toast.makeText(getActivity(), "" + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    private Context getActivity() {
+        return this;
+    }
+
+    private void ListarEquipamentos(){
+        try {
+            spnObj objSelecionado = new spnObj();
+            objSelecionado = (spnObj) spnLocalC.getSelectedItem();
+
+            // função que verifica se o usuário digitado existe e a senha está correta
+            WService ws = new WService();
+
+            // monta a url do webservice
+            final String link = ws.url + ws.equipamentosl + objSelecionado.getId();
+
+            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+            // faz a requisição para o webservice
+            CustomRequest jsObjRequest = new CustomRequest(Request.Method.GET, link, null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject jsonObject) {
+                            List<spnObj> lista = new ArrayList<spnObj>();
+                            try {
+                                JSONArray jsonArray = new JSONArray(jsonObject.optString("equipamentos"));
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject jObject = jsonArray.getJSONObject(i);
+
+                                    spnObj so = new spnObj(jObject.optInt("id"),jObject.optString("descricao"));
+
+                                    lista.add(so);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            ArrayAdapter<spnObj> dataAdapter = new ArrayAdapter<spnObj>(getActivity(),android.R.layout.simple_spinner_item, lista);
+                            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spnEquipamentoC.setAdapter(dataAdapter);
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+                    Log.d("Error.Response", volleyError.getMessage());
+                }
+            });
+            requestQueue.add(jsObjRequest);
+        }catch(RuntimeException e){
+            Toast.makeText(getActivity(), "" + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public class spnObj{
+
+        private int id;
+        private String nome;
+
+        public spnObj ( int id , String nome )
+        {
+            this.id = id;
+            this.nome = nome;
+        }
+
+        public spnObj(){
+
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getNome() {
+            return nome;
+        }
+
+        public void setNome(String nome) {
+            this.nome = nome;
+        }
+
+        @Override
+        public String toString() {
+            return this.nome;
+        }
     }
 
     @Override
