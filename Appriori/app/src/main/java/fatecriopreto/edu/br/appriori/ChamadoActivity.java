@@ -28,7 +28,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import fatecriopreto.edu.br.appriori.data.WService;
@@ -143,7 +142,7 @@ public class ChamadoActivity extends Activity {
                     spnEquipamentoC.requestFocus();
                     return;
                 }
-                if ( edtDescricao.equals("") ){
+                if ( edtDescricao.getText().equals("") ){
                     Toast.makeText(getActivity(), "Descreva o problema", Toast.LENGTH_LONG).show();
                     edtDescricao.requestFocus();
                     return;
@@ -170,13 +169,11 @@ public class ChamadoActivity extends Activity {
             SharedPreferences sharedpreferences = getApplicationContext().getSharedPreferences("usuario", MODE_PRIVATE);
             user.setId(sharedpreferences.getInt("id",0));
 
-            Date date = new Date();
-
             // instancia um chamado
             Chamado chamado = new Chamado();
             // atribui os dados no chamado
             chamado.setEquipamento(e);
-            chamado.setDescricao(edtDescricao.toString());
+            chamado.setDescricao(edtDescricao.getText().toString());
             chamado.setUsuario(user);
             // envia os dados para o web service
             WService ws = new WService();
@@ -185,7 +182,7 @@ public class ChamadoActivity extends Activity {
             js.put("descricao",chamado.getDescricao().toString());
             js.put("usuario_id",chamado.getUsuario().getId());
             js.put("equip_id",chamado.getEquipamento().getId());
-            final String link = ws.url + ws.cadastroUsuario;
+            final String link = ws.url + ws.cadastroChamado;
 
             RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
@@ -196,10 +193,8 @@ public class ChamadoActivity extends Activity {
                         public void onResponse(JSONObject jsonObject) {
                             //mPostCommentResponse.requestCompleted();
                             // verifica se o json retornado é o de erro
-                            if ( jsonObject.has("error") )
-                            {
-                                try
-                                {
+                            if ( jsonObject.has("error") ) {
+                                try {
                                     // se for, exibe a mensagem retornada
                                     JSONObject js = new JSONObject();
                                     js = jsonObject.getJSONObject("error");

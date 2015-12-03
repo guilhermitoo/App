@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class HomeActivity extends Activity {
 
@@ -16,6 +17,7 @@ public class HomeActivity extends Activity {
     Button btnChamadoH;
     Button btnAcompanharH;
     TextView txtTitulo;
+    Button btnConfiguracoes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,7 @@ public class HomeActivity extends Activity {
         btnChamadoH = (Button) findViewById(R.id.btnChamadoH);
         btnAcompanharH = (Button) findViewById(R.id.btnAcompanharH);
         txtTitulo = (TextView) findViewById(R.id.txtTitulo);
+        btnConfiguracoes = (Button) findViewById(R.id.btnConfiguracoes);
 
         // Declaração de um objeto sharedpreferences da instância de SharedPreferences
         SharedPreferences sharedpreferences = getApplicationContext().getSharedPreferences("usuario", MODE_PRIVATE);
@@ -52,6 +55,14 @@ public class HomeActivity extends Activity {
             public void onClick(View v) {
                 Intent acompanhar = new Intent (HomeActivity.this, AcompanharActivity.class);
                 startActivity(acompanhar);
+            }
+        });
+
+        // evento do botão configurações, carrega as configurações do usuário
+        btnConfiguracoes.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(HomeActivity.this, "teste.", Toast.LENGTH_LONG).show();
             }
         });
     }
