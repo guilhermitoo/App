@@ -151,7 +151,7 @@ function updateUsuario(){
                                   'email'=>$u->email,
                                   'senha'=>$u->senha],
                                  ['email'=>$u->email]);
-        echo '{"":'+$id+'}';
+        echo '{"":' . $id . '}';
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }       
@@ -161,17 +161,17 @@ function cadChamado(){
     try{        
         $app = \Slim\Slim::getInstance();
         $request = $app->request();
-        $body = $request->getBody();        
-        $chamado = json_decode($body);        
+        $body = $request->getBody();
+        $chamado = json_decode($body);       
         require 'db.php';
         $data = date('y-m-d');
         $id = $database->insert('chamados',
-                                 ['descricao'=>$chamado->descricao,
+                                 ['descricao'=>(string)$chamado->descricao,
                                   'data_inicio'=>$data,
                                   'status'=>1,
-                                  'usuario_id'=>$chamado->usuario_id,
-                                  'equipamento_id'=>$chamado->equip_id]);
-        echo '{"id":'+$id+'}';
+                                  'usuario_id'=>(integer)$chamado->usuario_id,
+                                  'equipamento_id'=>(integer)$chamado->equip_id]);
+        echo '{"id":'. $id . '}';
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }       
