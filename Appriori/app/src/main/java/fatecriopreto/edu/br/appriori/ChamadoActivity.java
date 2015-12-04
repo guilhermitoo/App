@@ -2,7 +2,6 @@ package fatecriopreto.edu.br.appriori;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,7 +42,6 @@ public class ChamadoActivity extends Activity {
     Spinner spnEquipamentoC;
     EditText edtDescricao;
     Button btnSalvar;
-    Button btnCancelar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +52,6 @@ public class ChamadoActivity extends Activity {
         spnEquipamentoC = (Spinner) findViewById(R.id.spnEquipamentoC);
         edtDescricao = (EditText) findViewById(R.id.edtDescricao);
         btnSalvar = (Button) findViewById(R.id.btnSalvar);
-        btnCancelar = (Button) findViewById(R.id.btnCancelar);
 
         // carregar os locais no combo de locais
         try {
@@ -112,14 +109,6 @@ public class ChamadoActivity extends Activity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
-            }
-        });
-
-        btnCancelar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent cancelar = new Intent(getActivity(), HomeActivity.class);
-                startActivity(cancelar);
             }
         });
 
@@ -209,9 +198,7 @@ public class ChamadoActivity extends Activity {
                                         Toast.makeText(getActivity(), "Erro ao registrar o chamado.", Toast.LENGTH_LONG).show();
                                     }else {
                                         Toast.makeText(getActivity(), "Cadastrado com sucesso", Toast.LENGTH_LONG).show();
-                                        // cria a intent da activity login
-                                        Intent voltarChamados = new Intent (getActivity(), AcompanharActivity.class);
-                                        startActivity(voltarChamados);
+                                        return
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();

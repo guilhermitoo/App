@@ -43,47 +43,70 @@ create table chamados
 	funcionario_id int,
 	equipamento_id int not null,
 	CONSTRAINT fkUsuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON UPDATE NO ACTION ON DELETE NO ACTION,
-	CONSTRAINT fkFuncionario FOREIGN KEY (funcionario_id) REFERENCES funcionarios(id) ON UPDATE NO ACTION ON DELETE NO ACTION,
-	CONSTRAINT fkEquipamento FOREIGN KEY (equipamento_id) REFERENCES equipamentos(id) ON UPDATE NO ACTION ON DELETE NO ACTION
+	CONSTRAINT fkFuncionario FOREIGN KEY (funcionario_id) REFERENCES funcionarios(id) ON UPDATE NO ACTION ON DELETE NO 
+
+ACTION,
+	CONSTRAINT fkEquipamento FOREIGN KEY (equipamento_id) REFERENCES equipamentos(id) ON UPDATE NO ACTION ON DELETE NO 
+
+ACTION
 );
-
-
--- código de criação do usuário
-
-CREATE USER 'user'@'localhost' IDENTIFIED BY PASSWORD '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257'; 
-GRANT USAGE ON *.* TO 'user'@'localhost' IDENTIFIED BY PASSWORD '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257'; 
-GRANT ALL PRIVILEGES ON `appriori`.* TO 'user'@'localhost';
 
 -- cria trigger de criptografia de funcionário
 
-CREATE TRIGGER `tg_senha` BEFORE INSERT ON `funcionarios`
- FOR EACH ROW begin
-declare senha varchar(32);
-set senha = md5(new.senha);
-set new.senha = senha;
-end
+delimiter //
 
-CREATE TRIGGER `tg_altera_funcionario` BEFORE UPDATE ON `funcionarios` FOR EACH ROW begin declare senha varchar(32); if (new.senha <> old.senha) then set senha = md5(new.senha); set new.senha = senha; end if; end
-
-
--- cria trigger de criptografia de usuário
-
-CREATE TRIGGER `tg_senha_usuario` BEFORE INSERT ON `usuarios` 
-FOR EACH ROW begin 
-declare senha varchar(32); 
-set senha = md5(new.senha); 
-set new.senha = senha; 
-end
-
-CREATE TRIGGER `tg_altera_senha` BEFORE UPDATE ON 
-`usuarios` FOR EACH ROW begin 
-declare senha varchar(32); 
+CREATE TRIGGER tg_insere_funcionario BEFORE INSERT 
+ON funcionarios 
+FOR EACH ROW 
+BEGIN 
+	declare senha varchar(32); 
+	set senha = md5(new.senha); 
+	set new.senha = senha; 
+END;
+//
+CREATE TRIGGER tg_altera_funcionario BEFORE UPDATE 
+ON funcionarios 
+FOR EACH ROW 
+BEGIN 
+	declare senha varchar(32); 
 	if (new.senha <> old.senha) then 
 		set senha = md5(new.senha); 
 		set new.senha = senha; 
 	end if; 
-end
+END;
+//
+
+-- cria trigger de criptografia de usuário
+
+CREATE TRIGGER tg_insere_usuario BEFORE INSERT 
+ON usuarios
+FOR EACH ROW 
+BEGIN
+	declare senha varchar(32); 
+	set senha = md5(new.senha); 
+	set new.senha = senha; 
+END;
+//
+CREATE TRIGGER tg_altera_usuario BEFORE UPDATE 
+ON usuarios 
+FOR EACH ROW 
+BEGIN
+	declare senha varchar(32); 
+	if (new.senha <> old.senha) then 
+		set senha = md5(new.senha); 
+		set new.senha = senha; 
+	end if; 
+END;
+//
+
+-- código de criação do usuário do banco
+
+CREATE USER 'user'@'localhost' IDENTIFIED BY PASSWORD '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257'; 
+GRANT USAGE ON *.* TO 'user'@'localhost' IDENTIFIED BY PASSWORD '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257'; 
+GRANT ALL PRIVILEGES ON appriori.* TO 'user'@'localhost';
 
 -- inserindo um funcionário para acesso do sistema
 
 INSERT INTO 'appriori'.'funcionarios' ( 'nome', 'rg', 'email', 'senha', 'periodo') VALUES ( 'Administrador', '1', 'admin@admin', 'admin', 'T');
+
+delimiter ;

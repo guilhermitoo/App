@@ -21,7 +21,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import fatecriopreto.edu.br.appriori.bean.Login;
-import fatecriopreto.edu.br.appriori.data.DBAdapter;
 import fatecriopreto.edu.br.appriori.data.WService;
 import fatecriopreto.edu.br.appriori.model.Usuario;
 
@@ -33,10 +32,8 @@ public class CadastrarActivity extends Activity {
     EditText edtSenha;
     EditText edtSenha2;
     Button   btnSalvar;
-    Button   btnCancelar;
 
     Login login;
-    DBAdapter dbAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +46,6 @@ public class CadastrarActivity extends Activity {
         edtSenha = (EditText) findViewById(R.id.edtSenha);
         edtSenha2 = (EditText) findViewById(R.id.edtSenha2);
         btnSalvar = (Button)  findViewById(R.id.btnSalvar);
-        btnCancelar = (Button) findViewById(R.id.btnCancelar);
 
         //evento para salvar
         btnSalvar.setOnClickListener(new View.OnClickListener() {
@@ -95,14 +91,6 @@ public class CadastrarActivity extends Activity {
                 u.setSenha(senha.toString());
                 // e então chama a função para cadastrar
                 cadastrar(u);
-            }
-        });
-
-        btnCancelar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent cancelar = new Intent (CadastrarActivity.this, LoginActivity.class);
-                startActivity(cancelar);
             }
         });
 

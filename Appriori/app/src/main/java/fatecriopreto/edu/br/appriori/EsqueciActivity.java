@@ -1,7 +1,6 @@
 package fatecriopreto.edu.br.appriori;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,8 +13,6 @@ public class EsqueciActivity extends Activity {
     //componentes maanipulados layout
     EditText edtEmail;
     Button   btnEnviar;
-    Button   btnCancelar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +22,6 @@ public class EsqueciActivity extends Activity {
         //conectar elementos
         edtEmail = (EditText) findViewById(R.id.edtEmail);
         btnEnviar = (Button) findViewById(R.id.btnEnviar);
-        btnCancelar = (Button) findViewById(R.id.btnCancelar);
 
         //evento enviar- enviar solicitação e voltar na tela de login
         btnEnviar.setOnClickListener(new View.OnClickListener() {
@@ -36,14 +32,6 @@ public class EsqueciActivity extends Activity {
 
                 //Intent enviar = new Intent (EsqueciActivity.this, LoginActivity.class);
                 //startActivity(enviar);
-            }
-        });
-
-        btnCancelar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent cancel = new Intent (EsqueciActivity.this, LoginActivity.class);
-                startActivity(cancel);
             }
         });
 
