@@ -2,6 +2,7 @@ package fatecriopreto.edu.br.appriori;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -198,7 +199,9 @@ public class ChamadoActivity extends Activity {
                                         Toast.makeText(getActivity(), "Erro ao registrar o chamado.", Toast.LENGTH_LONG).show();
                                     }else {
                                         Toast.makeText(getActivity(), "Cadastrado com sucesso", Toast.LENGTH_LONG).show();
-                                        return
+                                        Intent it = new Intent(getActivity(), HomeActivity.class);
+                                        it.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                        startActivity(it);
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();

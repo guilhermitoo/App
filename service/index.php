@@ -12,6 +12,7 @@ $app->get('/locais/:id', 'getLocal');
 $app->get('/equipamentos_local/:local_id','getEquipamentosLocal');
 $app->get('/equipamentos/','getEquipamentos');
 $app->get('/equipamentos/:id','getEquipamento');
+$app->get('/chamados_usuario/:id_usuario','getChamadosUser');
 $app->get('/chamados/','getChamados');
 $app->get('/chamados/:id','getChamado');
 $app->get('/usuarios/','getUsuarios');
@@ -175,6 +176,28 @@ function cadChamado(){
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }       
+}
+
+function getChamadosUser($id_usuario){
+    try{
+        require 'db.php';
+        $query = $database->select('chamados',
+                                   ['[>]equipamentos'=>['equipamento_id'=>'id']],
+                                   ['chamados.id',
+                                    'chamados.descricao',
+                                    'chamados.data_inicio',
+                                    'chamados.data_fim',
+                                    'chamados.status',
+                                    'chamados.usuario_id',
+                                    'chamados.funcionario_id',
+                                    'chamados.equipamento_id',
+                                    'equipamentos.descricao(equipamento_descricao)'],
+                                   ['usuario_id'=>$id_usuario,  
+                                    'ORDER'=>'data_inicio']);
+        echo '{"chamados":' . json_encode($query) . '}';
+    }catch(PDOException $e){
+        echo '{"error":{"text":'. $e->getMessage() .'}}';
+    }
 }
 
 function getChamados(){

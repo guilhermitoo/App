@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class HomeActivity extends Activity {
 
@@ -45,6 +44,7 @@ public class HomeActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent chamado = new Intent (HomeActivity.this, ChamadoActivity.class);
+                chamado.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(chamado);
             }
         });
@@ -54,6 +54,7 @@ public class HomeActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent acompanhar = new Intent (HomeActivity.this, AcompanharActivity.class);
+                acompanhar.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(acompanhar);
             }
         });
@@ -62,7 +63,9 @@ public class HomeActivity extends Activity {
         btnConfiguracoes.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(HomeActivity.this, "teste.", Toast.LENGTH_LONG).show();
+                Intent conf = new Intent (HomeActivity.this, ConfiguracoesActivity.class);
+                conf.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(conf);
             }
         });
     }

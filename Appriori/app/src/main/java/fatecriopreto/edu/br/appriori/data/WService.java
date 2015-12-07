@@ -12,6 +12,7 @@ public class WService {
     public String equipamentos;
     public String equipamentosl;
     public String chamados;
+    public String chamados_usuario;
     public String usuarios;
     public String login;
     public String updateUsuario;
@@ -20,13 +21,17 @@ public class WService {
 
     public WService() {
         // LINK DO WEB SERVICE
-        url = "http://192.168.56.1/app/service";
+        String note = "192.168.56.1";
+        String pc = "appriori.no-ip.info:8090";
+
+        url = "http://" + note + "/app/service";
 
         // CAMINHOS WEB SERVICE
         locais = "/locais/";
         equipamentos = "/equipamentos/";
         equipamentosl = "/equipamentos_local/";
         chamados = "/chamados/";
+        chamados_usuario = "/chamados_usuario/";
         usuarios = "/usuarios/";
         login = "/usuario_login/";
         updateUsuario = "/upd_usuario/";

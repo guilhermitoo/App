@@ -38,6 +38,10 @@
             android:name=".AcompanharActivity"
             android:label="@string/title_activity_acompanhar" >
         </activity>
+        <activity
+            android:name=".ConfiguracoesActivity"
+            android:label="@string/title_activity_configuracoes" >
+        </activity>
     </application>
 
 </manifest>

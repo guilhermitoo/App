@@ -144,6 +144,7 @@ public class CadastrarActivity extends Activity {
                                     Toast.makeText(CadastrarActivity.this, "Cadastrado com sucesso", Toast.LENGTH_LONG).show();
                                     // cria a intent da activity login
                                     Intent voltar = new Intent (CadastrarActivity.this, LoginActivity.class);
+                                    voltar.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                                     voltar.putExtra("email", user.getEmail().toString());
                                     voltar.putExtra("senha", user.getSenha().toString());
                                     startActivity(voltar);

@@ -56,6 +56,17 @@ public class Chamado {
         return i;
     }
 
+    public String getStatusString() {
+        // função para retornar o valor numérico do status
+        String s = "";
+        switch (status){
+            case PENDENTE: s = "Pendente";
+            case REALIZADO: s = "Realizado";
+            case CANCELADO: s = "Cancelado";
+        }
+        return s;
+    }
+
     public void setStatus(StatusChamado status) {
         this.status = status;
     }
