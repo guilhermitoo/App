@@ -1,5 +1,7 @@
 package fatecriopreto.edu.br.appriori.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import fatecriopreto.edu.br.appriori.util.StatusChamado;
@@ -33,12 +35,52 @@ public class Chamado {
         this.dataInicio = dataInicio;
     }
 
+    public void setDataInicioStr(String sData) {
+        String dia,mes,ano,dataCorreta;
+        // string recebida YYYY-MM-DD
+        ano = sData.substring(0,4);
+        mes = sData.substring(5,7);
+        dia = sData.substring(8,10);
+        dataCorreta = dia + "/" + mes + "/" + ano + " 00:00:00";
+
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
+
+        Date data = new Date();
+        try{
+            data = df.parse(dataCorreta);
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+
+        this.dataInicio = data;
+    }
+
     public Date getDataFim() {
         return dataFim;
     }
 
     public void setDataFim(Date dataFim) {
         this.dataFim = dataFim;
+    }
+
+    public void setDataFimStr(String sData) {
+        String dia,mes,ano,dataCorreta;
+        // string recebida YYYY-MM-DD
+        ano = sData.substring(0,4);
+        mes = sData.substring(5,7);
+        dia = sData.substring(8,10);
+        dataCorreta = dia + "/" + mes + "/" + ano + " 00:00:00";
+
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
+
+        Date data = new Date();
+        try{
+            data = df.parse(dataCorreta);
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+
+        this.dataInicio = data;
     }
 
     public StatusChamado getStatus() {
@@ -49,9 +91,18 @@ public class Chamado {
         // função para retornar o valor numérico do status
         Integer i = 0;
         switch (status){
-            case PENDENTE: i = 1;
-            case REALIZADO: i = 2;
-            case CANCELADO: i = 3;
+            case PENDENTE:{
+                i = 1;
+                break;
+            }
+            case REALIZADO: {
+                i = 2;
+                break;
+            }
+            case CANCELADO: {
+                i = 3;
+                break;
+            }
         }
         return i;
     }
@@ -60,15 +111,43 @@ public class Chamado {
         // função para retornar o valor numérico do status
         String s = "";
         switch (status){
-            case PENDENTE: s = "Pendente";
-            case REALIZADO: s = "Realizado";
-            case CANCELADO: s = "Cancelado";
+            case PENDENTE:{
+                s = "Pendente";
+                break;
+            }
+            case REALIZADO: {
+                s = "Realizado";
+                break;
+            }
+            case CANCELADO: {
+                s = "Cancelado";
+                break;
+            }
         }
         return s;
     }
 
     public void setStatus(StatusChamado status) {
         this.status = status;
+    }
+
+    public void setStatusInt(Integer status) {
+        switch (status) {
+            case 1: {
+                this.status = StatusChamado.PENDENTE;
+                break;
+            }
+            case 2: {
+                this.status = StatusChamado.REALIZADO;
+                break;
+            }
+            case 3: {
+                this.status = StatusChamado.CANCELADO;
+                break;
+            }
+            default:
+                this.status = null;
+        }
     }
 
     public Usuario getUsuario() {
@@ -97,7 +176,7 @@ public class Chamado {
 
     private int id;
     private String descricao;
-    private Date dataInicio ;
+    private Date dataInicio;
     private Date dataFim;
     private StatusChamado status;
     private Usuario usuario;

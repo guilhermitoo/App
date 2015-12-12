@@ -51,20 +51,7 @@ public class CadastrarActivity extends Activity {
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-/*
-                dbAdapter = new DBAdapter(CadastrarActivity.this);
-                dbAdapter.open();
 
-                login = new Login();
-                login.setNome(edtNome.getText().toString());
-                login.setEmail(edtEmail.getText().toString());
-                login.setSenha(edtSenha.getText().toString());
-
-                dbAdapter.adicionar(login);
-                dbAdapter.close();
-                Intent entrar = new Intent (CadastrarActivity.this, HomeActivity.class);
-                startActivity(entrar);
-*/
                 String nome,email,senha, senha2;
                 nome = edtNome.getText().toString();
                 email = edtEmail.getText().toString();
@@ -79,7 +66,7 @@ public class CadastrarActivity extends Activity {
                 // verifica se as senhas coincidem
                 if (!senha.equals(senha2)){
                     Toast.makeText(CadastrarActivity.this, "As senhas não coincidem.", Toast.LENGTH_LONG).show();
-                    edtSenha.requestFocus();
+                    edtSenha2.requestFocus();
                     return;
                 }
 

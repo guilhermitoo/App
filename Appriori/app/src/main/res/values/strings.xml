@@ -37,4 +37,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="tituloConfg">Configurações</string>
     <string name="alteraSenha">Alterar</string>
+    <string name="title_activity_altera_senha">AlteraSenhaActivity</string>
+    <string name="nova_senha">Nova Senha</string>
+    <string name="confirmar_nova_senha">Confirmar Nova Senha</string>
+    <string name="titulo_altera_senha">Alterar Senha</string>
+    <string name="senha_atual">Senha Atual</string>
 </resources>

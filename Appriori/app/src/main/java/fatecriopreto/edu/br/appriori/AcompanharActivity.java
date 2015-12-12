@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -25,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fatecriopreto.edu.br.appriori.data.WService;
+import fatecriopreto.edu.br.appriori.model.Chamado;
+import fatecriopreto.edu.br.appriori.model.Equipamento;
 import fatecriopreto.edu.br.appriori.util.CustomRequest;
 
 public class AcompanharActivity extends Activity {
@@ -53,29 +54,36 @@ public class AcompanharActivity extends Activity {
             RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
             // faz a requisição para o webservice
-            CustomRequest jsObjRequest = new CustomRequest(Request.Method.GET, link, null,
+            final CustomRequest jsObjRequest = new CustomRequest(Request.Method.GET, link, null,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject jsonObject) {
-                            List<listChamado> lista = new ArrayList<listChamado>();
+                            List<Chamado> lista = new ArrayList<Chamado>();
                             try {
                                 JSONArray jsonArray = new JSONArray(jsonObject.optString("chamados"));
-                                listChamado lst = new listChamado();
+                                Chamado ch = new Chamado();
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject jObject = jsonArray.getJSONObject(i);
 
-                                    lst.setData_inicio(jObject.getString("data_inicio"));
-                                    lst.setData_fim(jObject.getString("data_fim"));
-                                    lst.setEquipamento(jObject.getString("equipamento_descricao"));
-                                    lst.setStatus(jObject.getString("status"));
+                                    ch.setDataInicioStr(jObject.getString("data_inicio"));
+                                    //ch.setDataFim((Date) jObject.get("data_fim"));
+                                    Equipamento e = new Equipamento();
+                                    e.setId(jObject.getInt("equipamento_id"));
+                                    e.setDescricao(jObject.getString("equipamento_descricao"));
+                                    ch.setEquipamento(e);
+                                    ch.setStatusInt(jObject.getInt("status"));
+                                    ch.setDescricao(jObject.getString("descricao"));
 
-                                    lista.add(lst);
+                                    lista.add(ch);
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            ArrayAdapter<listChamado> dataAdapter = new ArrayAdapter<listChamado>(getActivity(),android.R.layout.simple_list_item_1, lista);
-                            lsvChamados.setAdapter(dataAdapter);
+
+                            AdapterListView adapter = new AdapterListView(getActivity(), lista);
+                            lsvChamados.setAdapter(adapter);
+                            //ArrayAdapter<listChamado> dataAdapter = new ArrayAdapter<listChamado>(getActivity(),android.R.layout.simple_list_item_1, lista);
+                            //lsvChamados.setAdapter(dataAdapter);
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -91,49 +99,6 @@ public class AcompanharActivity extends Activity {
 
     private Context getActivity() {
         return this;
-    }
-
-    private class listChamado {
-        public String getData_inicio() {
-            return data_inicio;
-        }
-
-        public void setData_inicio(String data_inicio) {
-            this.data_inicio = data_inicio;
-        }
-
-        public String getData_fim() {
-            return data_fim;
-        }
-
-        public void setData_fim(String data_fim) {
-            this.data_fim = data_fim;
-        }
-
-        public String getEquipamento() {
-            return equipamento;
-        }
-
-        public void setEquipamento(String equipamento) {
-            this.equipamento = equipamento;
-        }
-
-        public String getStatus() {
-            return status;
-        }
-
-        public void setStatus(String status) {
-            this.status = status;
-        }
-
-        private String data_inicio;
-        private String data_fim;
-        private String equipamento;
-        private String status;
-
-        private listChamado() {
-        }
-
     }
 
     @Override

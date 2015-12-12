@@ -32,12 +32,16 @@ public class HomeActivity extends Activity {
         // Declaração de um objeto sharedpreferences da instância de SharedPreferences
         SharedPreferences sharedpreferences = getApplicationContext().getSharedPreferences("usuario", MODE_PRIVATE);
 
-        // Cria um objeto chamado editor da instância de Editor a partir do método edit do objeto sharedpreferences
-        String nomeUsuario = "Logado: " + sharedpreferences.getString("nome","");
-
-        //define os titulos
-        setTitle("Principal");
-        txtTitulo.setText(nomeUsuario);
+        if ( sharedpreferences.contains("nome") ){
+            String nomeUsuario = "Logado: " + sharedpreferences.getString("nome","");
+            //define os titulos
+            setTitle("Principal");
+            txtTitulo.setText(nomeUsuario);
+        }else{
+            Intent login = new Intent (HomeActivity.this, LoginActivity.class);
+            login.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(login);
+        }
 
         //evento botão chamado, traz activity para abrir um chamado
         btnChamadoH.setOnClickListener(new View.OnClickListener() {

@@ -18,7 +18,7 @@ $app->get('/chamados/:id','getChamado');
 $app->get('/usuarios/','getUsuarios');
 $app->get('/usuarios/:id','getUsuario');
 $app->get('/usuario_login/:email','getLogin');
-$app->put('/upd_usuario/','updateUsuario'); 
+$app->post('/upd_usuario/','updateUsuario'); 
 $app->post('/cad_usuario/','cadUsuario');
 $app->post('/cad_chamado/','cadChamado');
 
@@ -144,15 +144,13 @@ function cadUsuario(){
 
 function updateUsuario(){
     try{
-        $request = \Slim\Slim::getInstance()->request();
-        $u = json_decode($request->getBody());  
+        $app = \Slim\Slim::getInstance();
+        $request = $app->request();
+        $body = $request->getBody();
+        $event = json_decode($body);  
         require 'db.php';
-        $id = $database->update('usuarios',
-                                 ['nome'=>$u->nome,
-                                  'email'=>$u->email,
-                                  'senha'=>$u->senha],
-                                 ['email'=>$u->email]);
-        echo '{"":' . $id . '}';
+        $id = $database->update('usuarios',['senha'=>(string)$event->senha],['email'=>(string)$event->email]);
+        echo '{"id":' . $id . '}';
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }       

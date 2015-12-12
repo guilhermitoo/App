@@ -1,5 +1,8 @@
 package fatecriopreto.edu.br.appriori;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -7,6 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import fatecriopreto.edu.br.appriori.model.Usuario;
 
 public class ConfiguracoesActivity extends AppCompatActivity {
 
@@ -14,6 +20,8 @@ public class ConfiguracoesActivity extends AppCompatActivity {
     EditText edtEmail;
     EditText edtSenha;
     Button btnAlterar;
+
+    Usuario user = new Usuario();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +33,37 @@ public class ConfiguracoesActivity extends AppCompatActivity {
         edtSenha = (EditText) findViewById(R.id.edtSenha);
         btnAlterar = (Button) findViewById(R.id.btnAlteraSenha);
 
+        // carrega as configurações do usuário logado e exibe nos campos da tela
+        // Declaração de um objeto sharedpreferences da instância de SharedPreferences
+        try {
+            SharedPreferences sharedpreferences = getApplicationContext().getSharedPreferences("usuario", MODE_PRIVATE);
+
+            user.setId(sharedpreferences.getInt("id", 0));
+            user.setNome(sharedpreferences.getString("nome", ""));
+            user.setEmail(sharedpreferences.getString("email", ""));
+            user.setSenha(sharedpreferences.getString("senha", ""));
+
+            edtNome.setText(user.getNome());
+            edtEmail.setText(user.getEmail());
+            edtSenha.setText(user.getSenha());
+        }catch(Exception e){
+            Toast.makeText(getActivity(), "Erro: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
         btnAlterar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // ao clicar no botão alterar, chama a activity AlteraSenha
+                Intent alterar = new Intent (getActivity(), AlteraSenhaActivity.class);
+                alterar.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(alterar);
             }
         });
 
+    }
+
+    private Context getActivity() {
+        return this;
     }
 
     @Override

@@ -6,7 +6,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/aplicativo_logo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -41,6 +41,10 @@
         <activity
             android:name=".ConfiguracoesActivity"
             android:label="@string/title_activity_configuracoes" >
+        </activity>
+        <activity
+            android:name=".AlteraSenhaActivity"
+            android:label="@string/title_activity_altera_senha" >
         </activity>
     </application>
 
