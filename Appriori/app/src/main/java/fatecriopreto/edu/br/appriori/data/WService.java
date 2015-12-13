@@ -24,7 +24,7 @@ public class WService {
         String note = "192.168.56.1";
         String pc = "appriori.no-ip.info:8090";
 
-        url = "http://" + pc + "/app/service";
+        url = "http://" + note + "/app/service";
 
         // CAMINHOS WEB SERVICE
         locais = "/locais/";

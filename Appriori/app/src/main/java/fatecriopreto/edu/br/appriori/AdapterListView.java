@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import fatecriopreto.edu.br.appriori.model.Chamado;
@@ -40,9 +42,9 @@ public class AdapterListView extends BaseAdapter {
     private class ItemAuxiliar{
         TextView txtDataInicio;
         TextView txtDescricao;
+        TextView txtLocal;
         TextView txtEquipamento;
         TextView txtStatus;
-        TextView txtDataFim;
     }
 
     @Override
@@ -57,9 +59,9 @@ public class AdapterListView extends BaseAdapter {
 
             auxiliar.txtDataInicio = (TextView) view.findViewById(R.id.txtDataInicio);
             auxiliar.txtDescricao = (TextView) view.findViewById(R.id.txtDescricao);
+            auxiliar.txtLocal = (TextView) view.findViewById(R.id.txtLocal);
             auxiliar.txtEquipamento = (TextView) view.findViewById(R.id.txtEquipamento);
             auxiliar.txtStatus = (TextView) view.findViewById(R.id.txtStatus);
-            auxiliar.txtDataFim = (TextView) view.findViewById(R.id.txtDataFim);
 
             view.setTag(auxiliar);
         }else{
@@ -68,12 +70,16 @@ public class AdapterListView extends BaseAdapter {
 
         Chamado chamado = itens.get(i);
 
-        //auxiliar.txtDataInicio.setText(chamado.getDataInicio().toString());
+        SimpleDateFormat df = new SimpleDateFormat("EEEEE, dd 'de' MMMMM 'de' yyyy");
+        Date data = new Date();
+
+        auxiliar.txtDataInicio.setText(df.format(chamado.getDataInicio()));
         auxiliar.txtDescricao.setText(chamado.getDescricao());
-        auxiliar.txtEquipamento.setText(chamado.getEquipamento().getDescricao());
-        auxiliar.txtStatus.setText(chamado.getStatusString());
-        //auxiliar.txtDataFim.setText(chamado.getDataFim().toString());
+        auxiliar.txtLocal.setText("Local: " + chamado.getEquipamento().getLocal().getNome());
+        auxiliar.txtEquipamento.setText("Equipamento: " + chamado.getEquipamento().getDescricao());
+        auxiliar.txtStatus.setText("Status do chamado: " + chamado.getStatusString());
 
         return view;
     }
+
 }

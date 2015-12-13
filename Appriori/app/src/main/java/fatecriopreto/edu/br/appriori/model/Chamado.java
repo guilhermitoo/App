@@ -41,9 +41,9 @@ public class Chamado {
         ano = sData.substring(0,4);
         mes = sData.substring(5,7);
         dia = sData.substring(8,10);
-        dataCorreta = dia + "/" + mes + "/" + ano + " 00:00:00";
+        dataCorreta = dia + "/" + mes + "/" + ano;
 
-        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
         Date data = new Date();
         try{

@@ -68,7 +68,7 @@ public class HomeActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent conf = new Intent (HomeActivity.this, ConfiguracoesActivity.class);
-                conf.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                //conf.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(conf);
             }
         });

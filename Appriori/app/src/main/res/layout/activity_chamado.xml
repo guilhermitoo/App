@@ -22,6 +22,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/descTituloChamado"
+            android:id="@+id/textView2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/local"
             android:id="@+id/txtLocalC"
             android:layout_marginTop="60dp"
@@ -62,7 +69,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edtDescricao"
-            android:inputType="textMultiLine" />
+            android:inputType="textNoSuggestions|textMultiLine"
+            android:hint="@string/hintDescChamado"
+            android:maxLength="200"/>
 
         <GridLayout
             android:layout_width="wrap_content"

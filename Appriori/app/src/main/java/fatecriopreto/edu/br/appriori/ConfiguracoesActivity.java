@@ -9,16 +9,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import fatecriopreto.edu.br.appriori.model.Usuario;
 
 public class ConfiguracoesActivity extends AppCompatActivity {
 
-    EditText edtNome;
-    EditText edtEmail;
-    EditText edtSenha;
+    TextView txtNome;
+    TextView txtEmail;
+    TextView txtSenha;
     Button btnAlterar;
 
     Usuario user = new Usuario();
@@ -28,9 +28,9 @@ public class ConfiguracoesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuracoes);
 
-        edtNome = (EditText) findViewById(R.id.edtNome);
-        edtEmail = (EditText) findViewById(R.id.edtEmail);
-        edtSenha = (EditText) findViewById(R.id.edtSenha);
+        txtNome = (TextView) findViewById(R.id.txtNome);
+        txtEmail = (TextView) findViewById(R.id.txtEmail);
+        txtSenha = (TextView) findViewById(R.id.txtSenha);
         btnAlterar = (Button) findViewById(R.id.btnAlteraSenha);
 
         // carrega as configurações do usuário logado e exibe nos campos da tela
@@ -43,9 +43,9 @@ public class ConfiguracoesActivity extends AppCompatActivity {
             user.setEmail(sharedpreferences.getString("email", ""));
             user.setSenha(sharedpreferences.getString("senha", ""));
 
-            edtNome.setText(user.getNome());
-            edtEmail.setText(user.getEmail());
-            edtSenha.setText(user.getSenha());
+            txtNome.setText(user.getNome());
+            txtEmail.setText(user.getEmail());
+            txtSenha.setText(user.getSenha());
         }catch(Exception e){
             Toast.makeText(getActivity(), "Erro: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }

@@ -4,13 +4,13 @@
 
     <string name="action_settings">Settings</string>
     <string name="login">Login</string>
-    <string name="senha">Senha</string>
+    <string name="senha">Senha: </string>
     <string name="entrar">Entrar</string>
     <string name="cadastrar">Cadastrar</string>
     <string name="esqueci">Esqueci minha senha</string>
     <string name="title_activity_cadastrar">CadastrarActivity</string>
-    <string name="nome">Nome</string>
-    <string name="email">E-mail</string>
+    <string name="nome">Nome: </string>
+    <string name="email">E-mail: </string>
     <string name="salvar">Salvar</string>
     <string name="cancelar">Cancelar</string>
     <string name="title_activity_esqueci">EsqueciActivity</string>
@@ -42,4 +42,9 @@
     <string name="confirmar_nova_senha">Confirmar Nova Senha</string>
     <string name="titulo_altera_senha">Alterar Senha</string>
     <string name="senha_atual">Senha Atual</string>
+    <string name="descTitulo">Acompanhe os chamados que você abriu</string>
+    <string name="emailHint">E-mail</string>
+    <string name="SenhaHint">Senha</string>
+    <string name="hintDescChamado">Descreva o problema</string>
+    <string name="descTituloChamado">Registre o chamado para o equipamento</string>
 </resources>

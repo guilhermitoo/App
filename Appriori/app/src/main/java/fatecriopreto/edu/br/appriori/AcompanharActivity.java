@@ -26,6 +26,7 @@ import java.util.List;
 import fatecriopreto.edu.br.appriori.data.WService;
 import fatecriopreto.edu.br.appriori.model.Chamado;
 import fatecriopreto.edu.br.appriori.model.Equipamento;
+import fatecriopreto.edu.br.appriori.model.Local;
 import fatecriopreto.edu.br.appriori.util.CustomRequest;
 
 public class AcompanharActivity extends Activity {
@@ -61,15 +62,24 @@ public class AcompanharActivity extends Activity {
                             List<Chamado> lista = new ArrayList<Chamado>();
                             try {
                                 JSONArray jsonArray = new JSONArray(jsonObject.optString("chamados"));
-                                Chamado ch = new Chamado();
                                 for (int i = 0; i < jsonArray.length(); i++) {
+                                    // instancia as classes
+                                    Chamado ch = new Chamado();
+                                    Equipamento e = new Equipamento();
+                                    Local l = new Local();
+                                    // pega o objeto json correto
                                     JSONObject jObject = jsonArray.getJSONObject(i);
 
                                     ch.setDataInicioStr(jObject.getString("data_inicio"));
                                     //ch.setDataFim((Date) jObject.get("data_fim"));
-                                    Equipamento e = new Equipamento();
+
                                     e.setId(jObject.getInt("equipamento_id"));
                                     e.setDescricao(jObject.getString("equipamento_descricao"));
+                                    //INSTACIA LOCAL E ATRIBUI AO EQUIPAMENTO, PARA EXIBIÇÃO NO ADAPTERLISTVIEW
+
+                                    l.setId(jObject.getInt("local_id"));
+                                    l.setNome(jObject.getString("local_nome"));
+                                    e.setLocal(l);
                                     ch.setEquipamento(e);
                                     ch.setStatusInt(jObject.getInt("status"));
                                     ch.setDescricao(jObject.getString("descricao"));
@@ -82,8 +92,6 @@ public class AcompanharActivity extends Activity {
 
                             AdapterListView adapter = new AdapterListView(getActivity(), lista);
                             lsvChamados.setAdapter(adapter);
-                            //ArrayAdapter<listChamado> dataAdapter = new ArrayAdapter<listChamado>(getActivity(),android.R.layout.simple_list_item_1, lista);
-                            //lsvChamados.setAdapter(dataAdapter);
                         }
                     }, new Response.ErrorListener() {
                 @Override

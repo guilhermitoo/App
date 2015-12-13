@@ -180,7 +180,9 @@ function getChamadosUser($id_usuario){
     try{
         require 'db.php';
         $query = $database->select('chamados',
-                                   ['[>]equipamentos'=>['equipamento_id'=>'id']],
+                                   ['[>]equipamentos'=>['equipamento_id'=>'id'],
+                                    '[>]locais'=>['equipamentos.local_id'=>'id']
+                                   ],
                                    ['chamados.id',
                                     'chamados.descricao',
                                     'chamados.data_inicio',
@@ -189,9 +191,11 @@ function getChamadosUser($id_usuario){
                                     'chamados.usuario_id',
                                     'chamados.funcionario_id',
                                     'chamados.equipamento_id',
-                                    'equipamentos.descricao(equipamento_descricao)'],
+                                    'equipamentos.descricao(equipamento_descricao)',
+                                    'locais.id(local_id)',
+                                    'locais.nome(local_nome)'],
                                    ['usuario_id'=>$id_usuario,  
-                                    'ORDER'=>'data_inicio']);
+                                    'ORDER'=>'chamados.data_inicio DESC']);
         echo '{"chamados":' . json_encode($query) . '}';
     }catch(PDOException $e){
         echo '{"error":{"text":'. $e->getMessage() .'}}';

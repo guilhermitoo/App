@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -32,7 +33,7 @@ public class LoginActivity extends Activity {
     EditText edtSenhaL;
     Button   btnEntrarL;
     Button   btnCadastrarL;
-    Button   btnEsqueciL;
+    TextView btnEsqueciL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class LoginActivity extends Activity {
         btnEntrarL = (Button) findViewById(R.id.btnEntrarL);
 
         btnCadastrarL = (Button) findViewById(R.id.btnCadastrarL);
-        btnEsqueciL = (Button) findViewById(R.id.btnEsqueciL);
+        btnEsqueciL = (TextView) findViewById(R.id.btnEsqueciL);
 
         //evento para logar
         btnEntrarL.setOnClickListener(new View.OnClickListener() {

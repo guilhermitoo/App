@@ -15,63 +15,62 @@
         android:layout_alignWithParentIfMissing="false"
         android:gravity="center_vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login"
-            android:id="@+id/txtLogin"
-            android:layout_gravity="center_horizontal"
-            android:textSize="25sp"/>
-
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edtLogin"
-            android:layout_gravity="center_horizontal" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/senha"
-            android:id="@+id/txtSenhaL"
             android:layout_gravity="center_horizontal"
-            android:textSize="25sp"/>
+            android:hint="@string/emailHint"
+            android:inputType="textEmailAddress" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edtSenhaL"
             android:layout_gravity="center_horizontal"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:hint="@string/SenhaHint" />
+
 
         <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:columnCount="2">
+            android:columnCount="2"
+            android:layout_marginTop="20dp">
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/entrar"
                 android:id="@+id/btnEntrarL"
-                android:layout_column="0" />
+                android:layout_column="0"
+                android:background="@drawable/screen_border"
+                android:textColor="@android:color/white"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cadastrar"
                 android:id="@+id/btnCadastrarL"
-                android:layout_column="1" />
+                android:layout_column="1"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/screen_border"
+                android:textColor="@android:color/white"/>
 
         </GridLayout>
 
-        <Button
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/esqueci"
             android:id="@+id/btnEsqueciL"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
+            android:textStyle="bold|italic"
+            android:textColor="#0118ff"
+            android:textAlignment="center" />
 
     </LinearLayout>
 </RelativeLayout>
