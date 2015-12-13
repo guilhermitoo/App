@@ -20,10 +20,10 @@ if(isset($_POST)){
         echo 'erro ao fechar o chamado: poucos parâmetros informados';
         exit;
     }else{
-        if($tipo = 'R'){ // R de realizado
+        if($tipo == 'R'){ // R de realizado
             $status = 2;
             $status_texto = 'realizado';
-        }else if($tipo = 'C'){ // C de cancelado
+        }else if($tipo == 'C'){ // C de cancelado
             $status = 3;
             $status_texto = 'cancelado';
         }else{

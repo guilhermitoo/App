@@ -50,12 +50,12 @@
                         for($i=0; $i < data.length; $i++){
                                 html += "<tr>  " +
                                         "<td data-id='"+data[$i].id+"'>" + data[$i].id + " </td> " +
-                                        "<td>" + data[$i].descricao + " </td> " +
+                                        "<td width='40%'>" + data[$i].descricao + " </td> " +
                                         "<td>" + formataData(data[$i].data_inicio) + " </td> " +
                                         "<td>" + data[$i].nome_usuario + " </td> " +
                                         "<td>" + data[$i].equipamento_local + " </td> " +
                                         "<td>" + data[$i].equipamento_descricao + " </td> " +
-                                        "<td class='text-justify'>"+
+                                        "<td class='text-justify' width='100p'>"+
                                             "<button data-toggle='tooltip' title='Realizado' class='btn btn-icon waves-effect waves-light btn-success m-b-2 realizar'><i class='fa fa-thumbs-o-up'></i></button> "+
                                             "<button data-toggle='tooltip' title='Cancelado' class='btn btn-icon waves-effect waves-light btn-danger m-b-2 cancelar'><i class='fa fa-remove'></i></button></td>"+
                                         "</tr> ";     

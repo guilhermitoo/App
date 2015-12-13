@@ -38,7 +38,7 @@ if ( empty($id)){
                                'equipamentos.descricao(equipamento_descricao)',
                                'locais.nome(equipamento_local)'], //campos                                   
                               [ $filtro=>1,
-                                'ORDER'=>'chamados.data_inicio']);
+                                'ORDER'=>'chamados.data_fim DESC']);
 }else{
 	$query = $database->select('chamados', //tabela do select
                               [ '[>]usuarios'=>['usuario_id'=>'id'],

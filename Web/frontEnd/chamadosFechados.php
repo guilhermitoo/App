@@ -11,8 +11,8 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="table-responsive">
-                            <table class="table">
+                        <div style="overflow: auto; height: 480px">
+                            <table class="table" >
                                 <thead class="jumbotron">
                                     <tr>
                                         <th>ID</th>
@@ -53,8 +53,8 @@
                             html += "<tr>  " +
                                         "<td>" + data[$i].id + " </td> " +
                                         "<td>" + data[$i].descricao + " </td> " +
-                                        "<td>" + formataData(data[$i].data_inicio) + " </td> " +
-                                        "<td>" + formataData(data[$i].data_fim) + " </td> " +
+                                        "<td width='130p'>" + formataData(data[$i].data_inicio) + " </td> " +
+                                        "<td width='130p'>" + formataData(data[$i].data_fim) + " </td> " +
                                         "<td>" + data[$i].nome_usuario + " </td> " +
                                         "<td>" + data[$i].nome_funcionario + " </td> " +
                                         "<td>" + data[$i].equipamento_local + " </td> " +
