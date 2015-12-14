@@ -23,10 +23,6 @@
             android:label="@string/title_activity_cadastrar" >
         </activity>
         <activity
-            android:name=".EsqueciActivity"
-            android:label="@string/title_activity_esqueci" >
-        </activity>
-        <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home" >
         </activity>

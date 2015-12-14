@@ -3,7 +3,8 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".LoginActivity">
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".LoginActivity"
+    android:background="@drawable/imgfundo">
 
     <LinearLayout
         android:orientation="vertical"
@@ -15,13 +16,22 @@
         android:layout_alignWithParentIfMissing="false"
         android:gravity="center_vertical">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgLogo"
+            android:contentDescription="logo"
+            android:layout_weight="0.60" />
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edtLogin"
             android:layout_gravity="center_horizontal"
             android:hint="@string/emailHint"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff" />
 
         <EditText
             android:layout_width="match_parent"
@@ -29,7 +39,11 @@
             android:id="@+id/edtSenhaL"
             android:layout_gravity="center_horizontal"
             android:inputType="textPassword"
-            android:hint="@string/SenhaHint" />
+            android:hint="@string/SenhaHint"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:layout_marginTop="10dp"
+            />
 
 
         <GridLayout
@@ -46,7 +60,7 @@
                 android:id="@+id/btnEntrarL"
                 android:layout_column="0"
                 android:background="@drawable/screen_border"
-                android:textColor="@android:color/white"/>
+                android:textColor="#64158a"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -56,21 +70,10 @@
                 android:layout_column="1"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/screen_border"
-                android:textColor="@android:color/white"/>
+                android:textColor="#64158a"/>
 
         </GridLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/esqueci"
-            android:id="@+id/btnEsqueciL"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:clickable="true"
-            android:textStyle="bold|italic"
-            android:textColor="#0118ff"
-            android:textAlignment="center" />
-
     </LinearLayout>
+
 </RelativeLayout>

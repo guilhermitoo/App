@@ -4,11 +4,12 @@
     android:layout_height="match_parent"
     android:id="@+id/layoutPrincipal">
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/txtDataInicio" />
+        android:id="@+id/txtLocalEquipamento" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -19,19 +20,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/txtLocal" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/txtDataInicio" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/txtEquipamento" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/txtStatus" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/txtStatus"
+        android:textStyle="bold" />
 
 </LinearLayout>

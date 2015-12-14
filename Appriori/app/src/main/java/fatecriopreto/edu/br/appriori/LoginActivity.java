@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -33,7 +33,7 @@ public class LoginActivity extends Activity {
     EditText edtSenhaL;
     Button   btnEntrarL;
     Button   btnCadastrarL;
-    TextView btnEsqueciL;
+    ImageView imgLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,10 @@ public class LoginActivity extends Activity {
         btnEntrarL = (Button) findViewById(R.id.btnEntrarL);
 
         btnCadastrarL = (Button) findViewById(R.id.btnCadastrarL);
-        btnEsqueciL = (TextView) findViewById(R.id.btnEsqueciL);
+
+        imgLogo = (ImageView) findViewById(R.id.imgLogo);
+        // define o logo para a imagem
+        imgLogo.setImageResource(R.drawable.logo_appriori);
 
         //evento para logar
         btnEntrarL.setOnClickListener(new View.OnClickListener() {
@@ -80,13 +83,6 @@ public class LoginActivity extends Activity {
             //verificar o que falta para chamar a activity cadastrar
         });
 
-        btnEsqueciL.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent esqueci = new Intent(LoginActivity.this, EsqueciActivity.class);
-                startActivity(esqueci);
-            }
-        });
 
     }
 
