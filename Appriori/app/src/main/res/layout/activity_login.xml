@@ -59,7 +59,7 @@
                 android:text="@string/entrar"
                 android:id="@+id/btnEntrarL"
                 android:layout_column="0"
-                android:background="@drawable/screen_border"
+                android:background="@drawable/btn_border_login"
                 android:textColor="#64158a"/>
 
             <Button
@@ -69,7 +69,7 @@
                 android:id="@+id/btnCadastrarL"
                 android:layout_column="1"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/screen_border"
+                android:background="@drawable/btn_border_login"
                 android:textColor="#64158a"/>
 
         </GridLayout>

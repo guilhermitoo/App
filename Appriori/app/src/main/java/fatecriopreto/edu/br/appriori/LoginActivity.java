@@ -77,6 +77,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent cadastrar = new Intent (LoginActivity.this, CadastrarActivity.class);
+                cadastrar.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(cadastrar);
             }
 

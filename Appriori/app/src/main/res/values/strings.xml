@@ -17,7 +17,7 @@
     <string name="enviar">Enviar</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="local">Local</string>
-    <string name="chamado">Chamado</string>
+    <string name="chamado">Abrir Chamado</string>
     <string name="acompanhar">Acompanhar</string>
     <string name="title_activity_chamado">ChamadoActivity</string>
     <string name="title_activity_acompanhar">AcompanharActivity</string>

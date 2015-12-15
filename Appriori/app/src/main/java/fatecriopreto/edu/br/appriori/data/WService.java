@@ -22,7 +22,7 @@ public class WService {
     public WService() {
         // LINK DO WEB SERVICE
         String note = "192.168.56.1";
-        String pc = "appriori.no-ip.info:8090";
+        String ws = "appriori.no-ip.info:8090";
 
         url = "http://" + note + "/app/service";
 

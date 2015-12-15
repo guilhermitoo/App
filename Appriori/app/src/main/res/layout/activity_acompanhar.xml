@@ -17,14 +17,20 @@
             android:layout_height="wrap_content"
             android:text="@string/acompanhamento"
             android:id="@+id/txtTitulo"
-            android:textSize="40sp"/>
+            android:textSize="40sp"
+            android:textColor="@android:color/holo_purple"
+            android:textStyle="bold"
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/descTitulo"
-            android:id="@+id/txtDescTitulo" />
+            android:id="@+id/txtDescTitulo"
+            android:textStyle="bold"
+            android:textColor="@android:color/secondary_text_light"
+            />
 
         <ListView
             android:layout_width="wrap_content"

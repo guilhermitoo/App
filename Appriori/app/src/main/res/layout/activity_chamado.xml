@@ -17,14 +17,18 @@
             android:text="@string/titulochamado"
             android:id="@+id/textView"
             android:textSize="40sp"
-            android:allowUndo="false" />
+            android:allowUndo="false"
+            android:textColor="@android:color/holo_purple"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/descTituloChamado"
-            android:id="@+id/textView2" />
+            android:id="@+id/textView2"
+            android:textStyle="bold"
+            android:textColor="@android:color/secondary_text_light"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -32,7 +36,8 @@
             android:text="@string/local"
             android:id="@+id/txtLocalC"
             android:layout_marginTop="60dp"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:textColor="@android:color/secondary_text_light"/>
 
         <Spinner
             android:layout_width="match_parent"
@@ -48,7 +53,8 @@
             android:layout_height="wrap_content"
             android:text="@string/equipamento"
             android:id="@+id/txtEquipamentoC"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:textColor="@android:color/secondary_text_light"/>
 
         <Spinner
             android:layout_width="match_parent"
@@ -63,7 +69,8 @@
             android:layout_height="wrap_content"
             android:text="@string/descricao"
             android:id="@+id/txtDescricaoC"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:textColor="@android:color/secondary_text_light"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -84,7 +91,10 @@
                 android:text="@string/salvar"
                 android:id="@+id/btnSalvar"
                 android:layout_row="0"
-                android:layout_column="0" />
+                android:layout_column="0"
+                android:background="@drawable/btn_border"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="10dp" />
 
         </GridLayout>
 

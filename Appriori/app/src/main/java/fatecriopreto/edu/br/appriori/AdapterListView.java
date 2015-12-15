@@ -74,12 +74,12 @@ public class AdapterListView extends BaseAdapter {
         auxiliar.txtDataInicio.setText(df.format(chamado.getDataInicio()));
         auxiliar.txtDescricao.setText(chamado.getDescricao());
 
-        if (chamado.getStatus() == StatusChamado.PENDENTE) {
-            auxiliar.txtStatus.setTextColor(0xff000000);
-        }else if(chamado.getStatus() == StatusChamado.CANCELADO){
+        if (chamado.getStatus() == StatusChamado.PENDENTE) { // cinza
+            auxiliar.txtStatus.setTextColor(0xff888888);
+        }else if(chamado.getStatus() == StatusChamado.CANCELADO){ // vermelho
             auxiliar.txtStatus.setTextColor(0xffff0000);
-        }else if(chamado.getStatus() == StatusChamado.REALIZADO){
-            auxiliar.txtStatus.setTextColor(0xff0000ff);
+        }else if(chamado.getStatus() == StatusChamado.REALIZADO){ // verde
+            auxiliar.txtStatus.setTextColor(0xff00ff00);
         }
 
         auxiliar.txtStatus.setText(chamado.getStatusString());
