@@ -11,7 +11,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div style="overflow: auto; height: 480px">
+                        <div style="overflow: auto; height: 100hv">
                             <table class="table" >
                                 <thead class="jumbotron">
                                     <tr>
