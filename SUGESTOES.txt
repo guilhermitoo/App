@@ -1,0 +1,5 @@
+- Aviso de senha incorreta no web
+- Exigir uma descricao do chamado ao realizar ou cancelar
+- Categorias de problemas no aplicativo
+- Cadastro de usuário: verificar se o email existe
+- Cadastro de usuário: permitir apenas o domínio de email da fatec, evitando pessoal de fora da faculdade a acessar o aplicativo

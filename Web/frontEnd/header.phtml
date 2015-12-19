@@ -27,22 +27,21 @@
             <div class="topbar-left">
                 <div class="text-center"><a href="index.php" class="logo"><img src="assets/images/logo-appriori.png" class="img-responsive" /></a></div>
             </div>
-            <div class="navbar navbar-default" role="navigation">
-                <div class="container">                                            
-                    <ul class="nav navbar-nav navbar-right pull-right">                           
-                        <li class="hidden-xs">
-                            <div class="col-md-12">                                    
-                                <label class="text-right"><?php echo "Nome:  " . $_SESSION["nome"] . "  "; ?></label>                                
-                            </div>
-                        </li>
+            <div class="navbar navbar-default container" role="navigation">
+                <br/>
+                <ul class="nav navbar-nav navbar-right pull-right container">                           
+                    <li class="hidden-xs">
+                        <div class="col-md-12">                                    
+                            <label class="text-right"><?php echo "Nome:  " . $_SESSION["nome"] . "  "; ?></label>                                
+                        </div>
+                    </li>
 
-                        <li class="hidden-xs">                                    
-                            <form class="" action="../backEnd/logout.php">
-                                <button class="btn btn-danger" type="submit"><i class="md md-settings-power"></i> Sair</button>
-                            </form>  
-                        </li>
-                    </ul>
-                </div>
+                    <li class="hidden-xs">                                    
+                        <form class="" action="../backEnd/logout.php">
+                            <button class="btn btn-danger" type="submit"><i class="md md-settings-power"></i> Sair</button>
+                        </form>  
+                    </li>
+                </ul>
             </div>
         </div>
         <div class="left side-menu">
