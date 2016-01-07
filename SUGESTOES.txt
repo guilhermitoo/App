@@ -1,5 +1,6 @@
 - Aviso de senha incorreta no web
 - Exigir uma descricao do chamado ao realizar ou cancelar
 - Categorias de problemas no aplicativo
-- Cadastro de usu�rio: verificar se o email existe
-- Cadastro de usu�rio: permitir apenas o dom�nio de email da fatec, evitando pessoal de fora da faculdade a acessar o aplicativo
+- Cadastro de usuário: verificar se o email existe através de um email de verificação enviado para o usuário confirmar. Para isso é necessário um tipo de status no cadastro do usuário: (pendente (antes da confirmação), ativo, inativo)
+- Cadastro de usuário: permitir apenas o domínio de email da fatec, evitando pessoal de fora da faculdade a acessar o aplicativo;
+ > Na tela de cadastro, descrever brevemente que o email necessário para se registrar é o email institucional da fatec, evitando pessoal de fora da instituição se cadastrar e criar spam.
