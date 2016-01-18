@@ -51,7 +51,7 @@ ACTION,
 ACTION
 );
 
--- cria trigger de criptografia de funcion�rio
+-- cria trigger de criptografia de funcionário
 
 delimiter //
 
@@ -76,7 +76,7 @@ BEGIN
 END;
 //
 
--- cria trigger de criptografia de usu�rio
+-- cria trigger de criptografia de usuário
 
 CREATE TRIGGER tg_insere_usuario BEFORE INSERT 
 ON usuarios
@@ -99,14 +99,16 @@ BEGIN
 END;
 //
 
--- c�digo de cria��o do usu�rio do banco
+-- código de criação do usuário do banco
 
 CREATE USER 'user'@'localhost' IDENTIFIED BY PASSWORD '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257'; 
 GRANT USAGE ON *.* TO 'user'@'localhost' IDENTIFIED BY PASSWORD '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257'; 
 GRANT ALL PRIVILEGES ON appriori.* TO 'user'@'localhost';
 
--- inserindo um funcion�rio para acesso do sistema
+-- inserindo um funcionário para acesso do sistema
 
 INSERT INTO 'appriori'.'funcionarios' ( 'nome', 'rg', 'email', 'senha', 'periodo') VALUES ( 'Administrador', '1', 'admin@admin', 'admin', 'T');
+
+-- MUDAR A SENHA DO ADMIN APÓS RODAR A DDL
 
 delimiter ;
